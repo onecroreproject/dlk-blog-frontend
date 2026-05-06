@@ -12,9 +12,10 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <Router>
+    <Router basename="/projectblogs">
       <NotifyBar />
       <NavBar />
+
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -25,7 +26,7 @@ function App() {
           <Route path="/post-blog" element={<PostBlogPage />} />
         </Routes>
       </main>
-      {/* Global Footer */}
+
       <Footer />
     </Router>
   )
