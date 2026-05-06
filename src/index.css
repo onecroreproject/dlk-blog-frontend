@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Host Grotesk", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@layer base {
+  *, ::before, ::after {
+    font-family: "Host Grotesk", sans-serif !important;
+  }
+}
+
+body {
+  @apply bg-gray-50 text-gray-900;
+}
+
+@keyframes bounce-in {
+  0% { transform: translate(-50%, -100%) scale(0.9); opacity: 0; }
+  70% { transform: translate(-50%, 10%) scale(1.05); opacity: 1; }
+  100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
