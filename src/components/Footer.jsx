@@ -71,7 +71,7 @@ const Footer = () => {
 
   return (
     <footer className="mt-20 relative">
-      
+
       {/* Thank You Popup */}
       {showPopup && (
         <div className="fixed top-10 left-1/2 -translate-x-1/2 z-[1000] animate-bounce-in">
@@ -99,17 +99,17 @@ const Footer = () => {
               <p className="text-gray-400 font-medium mt-2">Subscribe to our Newsletter & Event Right Now to be Updated</p>
             </div>
           </div>
-          
+
           <div className="w-full lg:max-w-2xl">
             <div className="bg-white rounded-full flex items-center p-1 pl-8 shadow-2xl overflow-hidden">
-              <input 
-                type="email" 
-                placeholder="Enter Your Email" 
+              <input
+                type="email"
+                placeholder="Enter Your Email"
                 value={subscribeEmail}
                 onChange={(e) => setSubscribeEmail(e.target.value)}
                 className="flex-grow bg-transparent outline-none text-gray-800 placeholder-gray-400 text-base font-medium"
               />
-              <button 
+              <button
                 onClick={handleSubscribe}
                 className="bg-[#e32e2e] text-white px-10 py-4 rounded-full font-black text-sm uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg active:scale-95"
               >
@@ -123,7 +123,7 @@ const Footer = () => {
       {/* Main Footer Section */}
       <div className="bg-[#111111] text-white py-20 px-6">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          
+
           {/* Column 1: Top Categories */}
           <div>
             <h3 className="text-xl font-black mb-10 tracking-tight">Top Categories</h3>
@@ -160,10 +160,10 @@ const Footer = () => {
               {recentPosts.map((post) => (
                 <Link to={`/blog/${post._id}`} key={post._id} className="flex items-center gap-4 group cursor-pointer">
                   <div className="w-16 h-16 rounded-full bg-gray-800 border-2 border-white/10 overflow-hidden flex-shrink-0">
-                    <img 
-                      src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`} 
-                      alt="" 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                    <img
+                      src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`}
+                      alt=""
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
                   <div>
@@ -185,10 +185,10 @@ const Footer = () => {
             <div className="grid grid-cols-3 gap-2">
               {instaImages.map((blog) => (
                 <Link to={`/blog/${blog._id}`} key={blog._id} className="aspect-square bg-gray-800 rounded-lg overflow-hidden cursor-pointer group relative">
-                  <img 
-                    src={`${import.meta.env.VITE_BASE_URL}/${blog.titleImage}`} 
-                    alt="" 
-                    className="w-full h-full object-cover" 
+                  <img
+                    src={`${import.meta.env.VITE_BASE_URL}/${blog.titleImage}`}
+                    alt=""
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </Link>
@@ -198,7 +198,7 @@ const Footer = () => {
 
         </div>
       </div>
-      
+
       {/* Bottom Copyright Bar */}
       <div className="bg-[#000000] py-10 border-t border-white/5 text-white px-6">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
@@ -207,7 +207,7 @@ const Footer = () => {
             <a href="#" className="hover:text-red-600 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-red-600 transition-colors">Contact</a>
           </div>
-          
+
           <div className="flex flex-col items-center md:items-end gap-2">
             <Link to="/">
               <img src={logo} alt="DLK Technologies" className="h-8 w-auto mb-2 cursor-pointer" />

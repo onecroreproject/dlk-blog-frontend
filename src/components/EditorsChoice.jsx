@@ -37,7 +37,7 @@ const EditorsChoice = () => {
   return (
     <section className="bg-green-700 py-16 mt-12">
       <div className="container mx-auto px-6">
-        
+
         {/* Header Section */}
         <div className="flex flex-col items-center mb-12">
           <div className="flex items-center gap-4 w-full justify-center mb-8">
@@ -45,11 +45,11 @@ const EditorsChoice = () => {
             <h2 className="text-white text-3xl font-black uppercase tracking-widest text-center">Editor's Choice</h2>
             <div className="h-[2px] bg-white/20 flex-grow max-w-[200px]"></div>
           </div>
-          
+
           <div className="flex gap-8 overflow-x-auto pb-4 no-scrollbar">
             {categories.map((cat, i) => (
-              <button 
-                key={i} 
+              <button
+                key={i}
                 className={`text-[10px] md:text-xs font-bold tracking-tighter transition-colors whitespace-nowrap ${i === 0 ? 'text-white border-b-2 border-green-400 pb-1' : 'text-white/60 hover:text-white'}`}
               >
                 {cat}
@@ -60,22 +60,22 @@ const EditorsChoice = () => {
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+
           {/* Main Featured Post */}
           {mainPost && (
             <Link to={mainPost._id ? `/blog/${mainPost._id}` : '#'} className="relative h-[600px] rounded-2xl overflow-hidden group cursor-pointer shadow-2xl block">
               {mainPost.titleImage ? (
-                <img 
-                  src={`${import.meta.env.VITE_BASE_URL}/${mainPost.titleImage}`} 
-                  alt="" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                <img
+                  src={`${import.meta.env.VITE_BASE_URL}/${mainPost.titleImage}`}
+                  alt=""
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               ) : (
                 <div className="w-full h-full bg-gray-900 flex items-center justify-center text-gray-700 font-bold text-4xl">
                   {mainPost.title.charAt(0)}
                 </div>
               )}
-              
+
               {/* Play Button Overlay */}
               <div className="absolute top-8 left-8 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform z-10">
                 <FaPlay className="text-green-700 ml-1 text-xl" />
@@ -109,10 +109,10 @@ const EditorsChoice = () => {
               <Link key={post._id} to={post._id ? `/blog/${post._id}` : '#'} className="bg-white rounded-2xl overflow-hidden shadow-xl flex flex-col group cursor-pointer hover:-translate-y-2 transition-all duration-300">
                 <div className="h-44 relative bg-gray-200 overflow-hidden">
                   {post.titleImage ? (
-                    <img 
-                      src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`} 
-                      alt="" 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                    <img
+                      src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`}
+                      alt=""
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold text-2xl uppercase">
@@ -128,7 +128,7 @@ const EditorsChoice = () => {
                 <div className="p-5 flex flex-col flex-grow">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-6 h-6 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-red-600 text-[8px] font-black uppercase">
-                       {post.author?.charAt(0)}
+                      {post.author?.charAt(0)}
                     </div>
                     <span className="text-[10px] text-gray-500 font-bold">by {post.author} • {new Date(post.createdAt).toLocaleDateString()}</span>
                   </div>

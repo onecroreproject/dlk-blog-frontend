@@ -19,10 +19,10 @@ const TopAuthorsSection = () => {
         const authorMap = {};
         allBlogs.forEach(blog => {
           if (!authorMap[blog.author]) {
-            authorMap[blog.author] = { 
-              name: blog.author, 
-              articles: 0, 
-              totalViews: 0, 
+            authorMap[blog.author] = {
+              name: blog.author,
+              articles: 0,
+              totalViews: 0,
               avatar: blog.authorAvatar,
               slug: blog.author.toLowerCase().replace(/ /g, '-')
             };
@@ -58,20 +58,20 @@ const TopAuthorsSection = () => {
   return (
     <section className="container mx-auto px-6 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        
+
         {/* Left Column: Top Tech Authors */}
         <div className="lg:col-span-2">
           <div className="flex items-center gap-4 mb-8">
             <h2 className="text-2xl font-black text-gray-900 whitespace-nowrap uppercase tracking-tighter">Top Tech Author</h2>
             <div className="flex-grow h-[1px] bg-gray-200"></div>
           </div>
-          
+
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             {authors.length > 0 ? (
               authors.map((author, index) => (
-                <Link 
+                <Link
                   to={`/author/${author.slug}`}
-                  key={index} 
+                  key={index}
                   className="bg-white border border-gray-100 rounded-xl p-6 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer group"
                 >
                   <div className="w-20 h-20 rounded-full bg-gray-50 mb-4 border-2 border-gray-50 overflow-hidden flex items-center justify-center text-gray-400 group-hover:border-red-600 transition-colors">
@@ -99,16 +99,16 @@ const TopAuthorsSection = () => {
 
         {/* Right Column: Sidebar */}
         <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
-          
+
           {/* Recent Post Thumbnails */}
           <div className="mb-10">
             <h3 className="text-lg font-black text-gray-900 mb-6 uppercase tracking-tight">Recent Post</h3>
             <div className="grid grid-cols-3 gap-3">
               {recentThumbnails.length > 0 ? (
                 recentThumbnails.map((blog) => (
-                  <Link 
-                    to={`/blog/${blog._id}`} 
-                    key={blog._id} 
+                  <Link
+                    to={`/blog/${blog._id}`}
+                    key={blog._id}
                     className="aspect-square bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center text-[10px] text-gray-400 font-bold hover:opacity-80 transition-opacity"
                   >
                     {blog.titleImage ? (
@@ -152,13 +152,13 @@ const TopAuthorsSection = () => {
                 ))
               ) : (
                 [...Array(3)].map((_, i) => (
-                   <div key={i} className="flex gap-4 animate-pulse items-center">
-                      <div className="w-16 h-16 rounded-full bg-gray-100 flex-shrink-0"></div>
-                      <div className="flex-grow">
-                         <div className="h-4 bg-gray-100 rounded w-full mb-2"></div>
-                         <div className="h-2 bg-gray-50 rounded w-20"></div>
-                      </div>
-                   </div>
+                  <div key={i} className="flex gap-4 animate-pulse items-center">
+                    <div className="w-16 h-16 rounded-full bg-gray-100 flex-shrink-0"></div>
+                    <div className="flex-grow">
+                      <div className="h-4 bg-gray-100 rounded w-full mb-2"></div>
+                      <div className="h-2 bg-gray-50 rounded w-20"></div>
+                    </div>
+                  </div>
                 ))
               )}
             </div>

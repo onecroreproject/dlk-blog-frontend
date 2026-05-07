@@ -36,7 +36,7 @@ const CategoryPage = () => {
   }, [name]);
 
   // Filter blogs for this category
-  const filteredPosts = blogs.filter(blog => 
+  const filteredPosts = blogs.filter(blog =>
     blog.category.toLowerCase().replace(/ /g, '-') === name
   );
 
@@ -66,8 +66,8 @@ const CategoryPage = () => {
   if (loading) {
     return (
       <div className="bg-gray-50 min-h-screen py-20 flex flex-col items-center justify-center">
-         <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin mb-4"></div>
-         <p className="text-gray-400 font-black uppercase tracking-widest text-xs">Loading {categoryName}...</p>
+        <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p className="text-gray-400 font-black uppercase tracking-widest text-xs">Loading {categoryName}...</p>
       </div>
     );
   }
@@ -90,7 +90,7 @@ const CategoryPage = () => {
 
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
+
           {/* Main Content: Post List */}
           <div className="lg:col-span-8 flex flex-col gap-10">
             {filteredPosts.length > 0 ? (
@@ -99,28 +99,28 @@ const CategoryPage = () => {
                   {/* Post Image */}
                   <div className="aspect-video bg-gray-200 overflow-hidden relative">
                     {post.titleImage ? (
-                      <img 
-                        src={`${BASE_URL}/${post.titleImage}`} 
-                        alt="" 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                      <img
+                        src={`${BASE_URL}/${post.titleImage}`}
+                        alt=""
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-400 font-black text-xl uppercase tracking-widest">{post.title.charAt(0)}</div>
                     )}
                     <div className="absolute top-6 right-6 px-4 py-2 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg z-10">
-                       {post.category}
+                      {post.category}
                     </div>
                   </div>
-                  
+
                   {/* Post Content */}
                   <div className="p-10">
                     <div className="flex items-center gap-4 text-[10px] font-black text-gray-400 mb-6 uppercase tracking-widest">
                       <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center border border-red-100 overflow-hidden text-red-600">
                           {post.authorAvatar ? (
-                             <img src={`${BASE_URL}/${post.authorAvatar}`} alt="" className="w-full h-full object-cover" />
+                            <img src={`${BASE_URL}/${post.authorAvatar}`} alt="" className="w-full h-full object-cover" />
                           ) : (
-                             <span>{post.author?.charAt(0)}</span>
+                            <span>{post.author?.charAt(0)}</span>
                           )}
                         </div>
                         <span>by {post.author}</span>
@@ -136,8 +136,8 @@ const CategoryPage = () => {
                       <Link to={`/blog/${post._id}`}>{post.title}</Link>
                     </h2>
 
-                    <div 
-                      dangerouslySetInnerHTML={{ __html: post.content }} 
+                    <div
+                      dangerouslySetInnerHTML={{ __html: post.content }}
                       className="text-gray-500 font-medium leading-relaxed mb-8 line-clamp-3 text-sm"
                     ></div>
 
@@ -157,8 +157,8 @@ const CategoryPage = () => {
               ))
             ) : (
               <div className="text-center py-32 bg-white rounded-[40px] border border-gray-100 shadow-sm">
-                 <h2 className="text-xl font-black text-gray-300 uppercase tracking-widest">No Posts Found in {categoryName}</h2>
-                 <p className="text-gray-400 mt-2 font-bold">Check back later for fresh content!</p>
+                <h2 className="text-xl font-black text-gray-300 uppercase tracking-widest">No Posts Found in {categoryName}</h2>
+                <p className="text-gray-400 mt-2 font-bold">Check back later for fresh content!</p>
               </div>
             )}
           </div>
@@ -187,9 +187,9 @@ const CategoryPage = () => {
                     <div className="relative flex-shrink-0">
                       <div className="w-16 h-16 rounded-full bg-gray-50 border-2 border-white shadow-sm overflow-hidden flex items-center justify-center text-[10px] text-gray-400 font-bold">
                         {post.titleImage ? (
-                           <img src={`${BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
+                          <img src={`${BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
                         ) : (
-                           <span className="uppercase">{post.title.charAt(0)}</span>
+                          <span className="uppercase">{post.title.charAt(0)}</span>
                         )}
                       </div>
                       <div className="absolute -top-1 -left-1 w-6 h-6 bg-red-600 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-lg">{i + 1}</div>
@@ -212,8 +212,8 @@ const CategoryPage = () => {
               <h3 className="text-xl font-black text-gray-900 mb-8 border-l-4 border-red-600 pl-4 uppercase tracking-tighter text-center">Social Media</h3>
               <div className="grid grid-cols-2 gap-3">
                 {socialLinks.map((social, i) => (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className={`${social.color} rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer hover:scale-105 transition-all gap-1 h-20 shadow-sm`}
                   >
                     <div className="text-white text-lg">

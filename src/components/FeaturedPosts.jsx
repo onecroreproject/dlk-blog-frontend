@@ -69,7 +69,7 @@ const FeaturedPosts = () => {
 
       {/* Grid Content */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        
+
         {/* Left Column: Horizontal Cards */}
         <div className="flex flex-col gap-8">
           {horizontalPosts.length > 0 ? horizontalPosts.map((post) => (
@@ -81,7 +81,7 @@ const FeaturedPosts = () => {
                   <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold uppercase">{post.title.charAt(0)}</div>
                 )}
                 <div className="absolute top-4 left-4 px-3 py-1 bg-red-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">
-                   {post.category}
+                  {post.category}
                 </div>
               </div>
               <div className="md:w-3/5 p-5 flex flex-col justify-center">
@@ -104,7 +104,7 @@ const FeaturedPosts = () => {
             </Link>
           )) : (
             <div className="h-full flex items-center justify-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 py-20">
-               <p className="text-gray-400 font-black uppercase tracking-widest text-xs">No Featured Posts</p>
+              <p className="text-gray-400 font-black uppercase tracking-widest text-xs">No Featured Posts</p>
             </div>
           )}
         </div>
@@ -114,9 +114,9 @@ const FeaturedPosts = () => {
           {gridPosts.length > 0 ? gridPosts.map((post) => (
             <Link to={`/blog/${post._id}`} key={post._id} className="relative h-[350px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg border border-gray-100 block">
               {post.titleImage ? (
-                 <img src={`${BASE_URL}/${post.titleImage}`} alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img src={`${BASE_URL}/${post.titleImage}`} alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               ) : (
-                 <div className="absolute inset-0 bg-gray-900 flex items-center justify-center text-white font-black text-2xl uppercase">{post.title.charAt(0)}</div>
+                <div className="absolute inset-0 bg-gray-900 flex items-center justify-center text-white font-black text-2xl uppercase">{post.title.charAt(0)}</div>
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent p-6 flex flex-col justify-end">
                 <div className="flex items-center gap-2 mb-3">
@@ -140,7 +140,7 @@ const FeaturedPosts = () => {
           )) : (
             [...Array(4)].map((_, i) => (
               <div key={i} className="h-[350px] bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center">
-                 <p className="text-gray-300 font-black uppercase tracking-widest text-[10px]">Upcoming Post</p>
+                <p className="text-gray-300 font-black uppercase tracking-widest text-[10px]">Upcoming Post</p>
               </div>
             ))
           )}

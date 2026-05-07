@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { 
-  FaCalendarAlt, FaUser, FaQuoteRight, FaFacebookF, FaTwitter, 
-  FaLinkedinIn, FaPinterestP, FaYoutube, FaTelegramPlane, 
+import {
+  FaCalendarAlt, FaUser, FaQuoteRight, FaFacebookF, FaTwitter,
+  FaLinkedinIn, FaPinterestP, FaYoutube, FaTelegramPlane,
   FaDiscord, FaThLarge, FaInstagram, FaRegComment, FaEnvelope,
   FaEye, FaShareAlt
 } from "react-icons/fa";
@@ -53,7 +53,7 @@ const BlogDetailsPage = () => {
   const handleShare = async (platform) => {
     const url = window.location.href;
     const title = blog?.title;
-    
+
     let shareUrl = '';
     if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
@@ -118,14 +118,14 @@ const BlogDetailsPage = () => {
 
       <div className="container mx-auto px-6 py-12">
         <div className="flex flex-col lg:flex-row gap-12">
-          
+
           {/* LEFT CONTENT AREA */}
           <div className="lg:w-[68%]">
             {/* Featured Image */}
             <div className="bg-white rounded-xl overflow-hidden shadow-sm mb-10">
-              <img 
-                src={`${import.meta.env.VITE_BASE_URL}/${blog.titleImage}`} 
-                alt="" 
+              <img
+                src={`${import.meta.env.VITE_BASE_URL}/${blog.titleImage}`}
+                alt=""
                 className="w-full h-auto"
               />
             </div>
@@ -153,23 +153,23 @@ const BlogDetailsPage = () => {
             <h2 className="text-3xl font-black text-gray-900 mb-8 leading-tight">{blog.title}</h2>
 
             {/* Article Content */}
-            <div 
+            <div
               className="prose prose-lg max-w-none text-gray-600 leading-relaxed mb-12 blog-content-body"
               dangerouslySetInnerHTML={{ __html: cleanContent(blog.content) }}
             />
 
             {/* Blockquote Style from Reference */}
             <div className="my-12 py-12 px-10 bg-white border border-gray-100 rounded-xl text-center shadow-sm relative overflow-hidden">
-               <div className="flex justify-center mb-6">
-                 <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-red-200">
-                    <FaQuoteRight size={24} />
-                 </div>
-               </div>
-               <p className="text-2xl font-black text-gray-900 leading-snug mb-4 max-w-2xl mx-auto">
-                 Holistically build technologies expanded array relationships productize professional tailers rather mesh stand
-               </p>
-               <span className="text-red-600 font-black text-xs uppercase tracking-[0.2em]">{blog.author}</span>
-               <div className="text-[10px] text-gray-400 font-bold uppercase mt-1">Top Author</div>
+              <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-red-200">
+                  <FaQuoteRight size={24} />
+                </div>
+              </div>
+              <p className="text-2xl font-black text-gray-900 leading-snug mb-4 max-w-2xl mx-auto">
+                Holistically build technologies expanded array relationships productize professional tailers rather mesh stand
+              </p>
+              <span className="text-red-600 font-black text-xs uppercase tracking-[0.2em]">{blog.author}</span>
+              <div className="text-[10px] text-gray-400 font-bold uppercase mt-1">Top Author</div>
             </div>
 
             {/* Grid Images */}
@@ -203,12 +203,12 @@ const BlogDetailsPage = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                 <span className="text-gray-900 text-xs font-bold uppercase">Social Icon :</span>
-                 <div className="flex gap-4 text-gray-400">
-                   <FaFacebookF onClick={() => handleShare('facebook')} className="hover:text-red-600 cursor-pointer transition-colors" />
-                   <FaTwitter onClick={() => handleShare('twitter')} className="hover:text-red-600 cursor-pointer transition-colors" />
-                   <FaLinkedinIn onClick={() => handleShare('linkedin')} className="hover:text-red-600 cursor-pointer transition-colors" />
-                 </div>
+                <span className="text-gray-900 text-xs font-bold uppercase">Social Icon :</span>
+                <div className="flex gap-4 text-gray-400">
+                  <FaFacebookF onClick={() => handleShare('facebook')} className="hover:text-red-600 cursor-pointer transition-colors" />
+                  <FaTwitter onClick={() => handleShare('twitter')} className="hover:text-red-600 cursor-pointer transition-colors" />
+                  <FaLinkedinIn onClick={() => handleShare('linkedin')} className="hover:text-red-600 cursor-pointer transition-colors" />
+                </div>
               </div>
             </div>
 
@@ -216,24 +216,24 @@ const BlogDetailsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
               {prevBlog ? (
                 <Link to={`/blog/${prevBlog._id}`} className="flex items-center gap-4 p-6 bg-white rounded-xl shadow-sm border border-gray-50 hover:border-red-100 transition-all group">
-                   <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                     <img src={`${import.meta.env.VITE_BASE_URL}/${prevBlog.titleImage}`} alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div>
-                     <div className="text-[10px] font-black text-gray-300 uppercase tracking-widest mb-1">Previous Post</div>
-                     <h4 className="text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1">{prevBlog.title}</h4>
-                   </div>
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                    <img src={`${import.meta.env.VITE_BASE_URL}/${prevBlog.titleImage}`} alt="" className="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-black text-gray-300 uppercase tracking-widest mb-1">Previous Post</div>
+                    <h4 className="text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1">{prevBlog.title}</h4>
+                  </div>
                 </Link>
               ) : <div />}
               {nextBlog && (
                 <Link to={`/blog/${nextBlog._id}`} className="flex items-center justify-end gap-4 p-6 bg-white rounded-xl shadow-sm border border-gray-50 hover:border-red-100 transition-all group text-right">
-                   <div>
-                     <div className="text-[10px] font-black text-gray-300 uppercase tracking-widest mb-1">Next Post</div>
-                     <h4 className="text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1">{nextBlog.title}</h4>
-                   </div>
-                   <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                     <img src={`${import.meta.env.VITE_BASE_URL}/${nextBlog.titleImage}`} alt="" className="w-full h-full object-cover" />
-                   </div>
+                  <div>
+                    <div className="text-[10px] font-black text-gray-300 uppercase tracking-widest mb-1">Next Post</div>
+                    <h4 className="text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1">{nextBlog.title}</h4>
+                  </div>
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                    <img src={`${import.meta.env.VITE_BASE_URL}/${nextBlog.titleImage}`} alt="" className="w-full h-full object-cover" />
+                  </div>
                 </Link>
               )}
             </div>
@@ -260,7 +260,7 @@ const BlogDetailsPage = () => {
             <div className="bg-white p-10 rounded-xl border border-gray-100 shadow-sm">
               <h3 className="text-2xl font-black text-gray-900 mb-2">Leave a Reply</h3>
               <p className="text-gray-400 text-xs font-bold mb-8">Your email address will not be published. Required fields are marked *</p>
-              
+
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="relative">
@@ -280,96 +280,96 @@ const BlogDetailsPage = () => {
 
           {/* RIGHT SIDEBAR */}
           <div className="lg:w-[32%] space-y-10">
-            
+
             {/* Categories Widget */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-               <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
-                 <h3 className="text-lg font-black text-gray-900">Categories</h3>
-               </div>
-               <div className="p-6 space-y-4">
-                 {categories.map(cat => (
-                   <div key={cat._id} className="flex justify-between items-center group cursor-pointer">
-                     <span className="text-sm font-bold text-gray-500 group-hover:text-red-600 transition-colors">{cat.name}</span>
-                     <span className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-[10px] font-black text-gray-400 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">{getBlogCount(cat.name)}</span>
-                   </div>
-                 ))}
-               </div>
+              <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
+                <h3 className="text-lg font-black text-gray-900">Categories</h3>
+              </div>
+              <div className="p-6 space-y-4">
+                {categories.map(cat => (
+                  <div key={cat._id} className="flex justify-between items-center group cursor-pointer">
+                    <span className="text-sm font-bold text-gray-500 group-hover:text-red-600 transition-colors">{cat.name}</span>
+                    <span className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-[10px] font-black text-gray-400 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">{getBlogCount(cat.name)}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Latest Posts Widget */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-               <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
-                 <h3 className="text-lg font-black text-gray-900">Recent Posts</h3>
-               </div>
-               <div className="p-6 space-y-6">
-                 {recentBlogs.map(post => (
-                   <Link key={post._id} to={`/blog/${post._id}`} className="flex items-center gap-4 group">
-                     <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2 border-gray-100 shadow-sm group-hover:border-red-600 transition-all">
-                       <img src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
-                     </div>
-                     <div className="flex-grow">
-                        <div className="text-[9px] font-black text-red-600 uppercase tracking-widest mb-1">{post.category}</div>
-                        <h4 className="text-sm font-bold text-gray-900 leading-snug group-hover:text-red-600 transition-colors line-clamp-2">{post.title}</h4>
-                        <div className="text-[10px] font-bold text-gray-400 mt-1 uppercase tracking-tighter">3 min read</div>
-                     </div>
-                   </Link>
-                 ))}
-               </div>
+              <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
+                <h3 className="text-lg font-black text-gray-900">Recent Posts</h3>
+              </div>
+              <div className="p-6 space-y-6">
+                {recentBlogs.map(post => (
+                  <Link key={post._id} to={`/blog/${post._id}`} className="flex items-center gap-4 group">
+                    <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2 border-gray-100 shadow-sm group-hover:border-red-600 transition-all">
+                      <img src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex-grow">
+                      <div className="text-[9px] font-black text-red-600 uppercase tracking-widest mb-1">{post.category}</div>
+                      <h4 className="text-sm font-bold text-gray-900 leading-snug group-hover:text-red-600 transition-colors line-clamp-2">{post.title}</h4>
+                      <div className="text-[10px] font-bold text-gray-400 mt-1 uppercase tracking-tighter">3 min read</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
 
             {/* Social Media Widget */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-               <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
-                 <h3 className="text-lg font-black text-gray-900">Social Media</h3>
-               </div>
-               <div className="p-6 grid grid-cols-2 gap-3">
-                 {[
-                   { icon: <FaFacebookF />, label: 'Facebook', color: '#3b5998' },
-                   { icon: <FaPinterestP />, label: 'Pinterest', color: '#bd081c' },
-                   { icon: <FaLinkedinIn />, label: 'LinkedIn', color: '#0077b5' },
-                   { icon: <FaYoutube />, label: 'Youtube', color: '#cd201f' },
-                   { icon: <FaTelegramPlane />, label: 'Telegram', color: '#0088cc' },
-                   { icon: <FaDiscord />, label: 'Discord', color: '#7289da' },
-                 ].map(social => (
-                   <div key={social.label} style={{ backgroundColor: social.color }} className="flex flex-col items-center justify-center py-4 rounded-xl text-white cursor-pointer hover:scale-105 transition-transform">
-                     <span className="text-lg mb-1">{social.icon}</span>
-                     <span className="text-[8px] font-black uppercase tracking-widest">{social.label}</span>
-                     <span className="text-[7px] font-bold opacity-70">1.2k Followers</span>
-                   </div>
-                 ))}
-               </div>
+              <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
+                <h3 className="text-lg font-black text-gray-900">Social Media</h3>
+              </div>
+              <div className="p-6 grid grid-cols-2 gap-3">
+                {[
+                  { icon: <FaFacebookF />, label: 'Facebook', color: '#3b5998' },
+                  { icon: <FaPinterestP />, label: 'Pinterest', color: '#bd081c' },
+                  { icon: <FaLinkedinIn />, label: 'LinkedIn', color: '#0077b5' },
+                  { icon: <FaYoutube />, label: 'Youtube', color: '#cd201f' },
+                  { icon: <FaTelegramPlane />, label: 'Telegram', color: '#0088cc' },
+                  { icon: <FaDiscord />, label: 'Discord', color: '#7289da' },
+                ].map(social => (
+                  <div key={social.label} style={{ backgroundColor: social.color }} className="flex flex-col items-center justify-center py-4 rounded-xl text-white cursor-pointer hover:scale-105 transition-transform">
+                    <span className="text-lg mb-1">{social.icon}</span>
+                    <span className="text-[8px] font-black uppercase tracking-widest">{social.label}</span>
+                    <span className="text-[7px] font-bold opacity-70">1.2k Followers</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Photo Gallery Widget */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-               <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
-                 <h3 className="text-lg font-black text-gray-900">Photo Gallery</h3>
-               </div>
-               <div className="p-6 grid grid-cols-3 gap-2">
-                 {blogs.slice(0, 6).map((item, i) => (
-                   <div key={i} className="aspect-square rounded-lg overflow-hidden bg-gray-100 shadow-sm hover:opacity-80 transition-opacity cursor-pointer">
-                     <img src={`${import.meta.env.VITE_BASE_URL}/${item.titleImage}`} alt="" className="w-full h-full object-cover" />
-                   </div>
-                 ))}
-               </div>
+              <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
+                <h3 className="text-lg font-black text-gray-900">Photo Gallery</h3>
+              </div>
+              <div className="p-6 grid grid-cols-3 gap-2">
+                {blogs.slice(0, 6).map((item, i) => (
+                  <div key={i} className="aspect-square rounded-lg overflow-hidden bg-gray-100 shadow-sm hover:opacity-80 transition-opacity cursor-pointer">
+                    <img src={`${import.meta.env.VITE_BASE_URL}/${item.titleImage}`} alt="" className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Popular Tags Widget */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-               <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
-                 <h3 className="text-lg font-black text-gray-900">Popular Tags</h3>
-               </div>
-               <div className="p-6 flex flex-wrap gap-2">
-                 {popularTags.length > 0 ? (
-                   popularTags.map(tag => (
-                     <div key={tag} className="px-4 py-2 bg-gray-50 rounded-full text-[10px] font-black text-gray-500 uppercase tracking-tighter hover:bg-red-600 hover:text-white cursor-pointer transition-all border border-gray-100 shadow-sm">
-                       {tag}
-                     </div>
-                   ))
-                 ) : (
-                   <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest px-2">No tags available</span>
-                 )}
-               </div>
+              <div className="p-6 border-b border-gray-50 bg-[#fafafa]">
+                <h3 className="text-lg font-black text-gray-900">Popular Tags</h3>
+              </div>
+              <div className="p-6 flex flex-wrap gap-2">
+                {popularTags.length > 0 ? (
+                  popularTags.map(tag => (
+                    <div key={tag} className="px-4 py-2 bg-gray-50 rounded-full text-[10px] font-black text-gray-500 uppercase tracking-tighter hover:bg-red-600 hover:text-white cursor-pointer transition-all border border-gray-100 shadow-sm">
+                      {tag}
+                    </div>
+                  ))
+                ) : (
+                  <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest px-2">No tags available</span>
+                )}
+              </div>
             </div>
 
           </div>

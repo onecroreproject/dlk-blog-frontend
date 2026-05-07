@@ -62,30 +62,30 @@ const FeaturedSection = () => {
   return (
     <div className="px-6 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 rounded-[40px] overflow-hidden shadow-2xl border border-gray-100">
-        
+
         {/* Left Section: Main Featured Post */}
         {mainPost ? (
           <Link to={`/blog/${mainPost._id}`} className="lg:col-span-2 relative h-[600px] group cursor-pointer overflow-hidden block">
             {/* Main Image */}
             {mainPost.titleImage ? (
-              <img 
-                src={`${BASE_URL}/${mainPost.titleImage}`} 
-                alt="" 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
+              <img
+                src={`${BASE_URL}/${mainPost.titleImage}`}
+                alt=""
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
               />
             ) : (
               <div className="w-full h-full bg-gray-900 flex items-center justify-center text-white font-black text-6xl uppercase">{mainPost.title.charAt(0)}</div>
             )}
-            
+
             {/* Overlay Content */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent">
               <div className="absolute bottom-0 left-0 p-10 w-full">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-red-600 border-2 border-white flex items-center justify-center text-white font-black uppercase text-sm shadow-xl">
                     {mainPost.authorAvatar ? (
-                       <img src={`${BASE_URL}/${mainPost.authorAvatar}`} alt="" className="w-full h-full object-cover rounded-full" />
+                      <img src={`${BASE_URL}/${mainPost.authorAvatar}`} alt="" className="w-full h-full object-cover rounded-full" />
                     ) : (
-                       <span>{mainPost.author?.charAt(0)}</span>
+                      <span>{mainPost.author?.charAt(0)}</span>
                     )}
                   </div>
                   <div className="text-white">
@@ -93,11 +93,11 @@ const FeaturedSection = () => {
                     <p className="text-sm font-black uppercase tracking-tighter">by {mainPost.author}</p>
                   </div>
                 </div>
-                
+
                 <h1 className="text-white text-3xl md:text-5xl font-black mb-6 leading-tight group-hover:text-red-500 transition-colors tracking-tighter uppercase">
                   {mainPost.title}
                 </h1>
-                
+
                 <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-gray-300 bg-black/40 backdrop-blur-md w-fit px-6 py-3 rounded-full border border-white/10">
                   <span className="text-red-500">{mainPost.category}</span>
                   <span>•</span>
@@ -114,14 +114,14 @@ const FeaturedSection = () => {
 
         {/* Right Section: Sidebar Posts */}
         <div className="bg-[#0a0a0a] p-8 flex flex-col gap-8">
-          
+
           {/* Top Sidebar Post */}
           {sidebarTop ? (
             <Link to={`/blog/${sidebarTop._id}`} className="relative h-56 rounded-3xl overflow-hidden group cursor-pointer block border border-white/5 shadow-2xl">
               {sidebarTop.titleImage ? (
-                 <img src={`${BASE_URL}/${sidebarTop.titleImage}`} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img src={`${BASE_URL}/${sidebarTop.titleImage}`} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               ) : (
-                 <div className="w-full h-full bg-gray-800 flex items-center justify-center text-white font-black text-2xl uppercase">{sidebarTop.title.charAt(0)}</div>
+                <div className="w-full h-full bg-gray-800 flex items-center justify-center text-white font-black text-2xl uppercase">{sidebarTop.title.charAt(0)}</div>
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/10 to-transparent p-6 flex flex-col justify-end">
                 <h3 className="text-white font-black text-sm leading-snug group-hover:text-red-500 transition-colors uppercase tracking-tight line-clamp-2">
@@ -145,9 +145,9 @@ const FeaturedSection = () => {
                 <div className="relative flex-shrink-0">
                   <div className="w-16 h-16 rounded-full bg-gray-900 border-2 border-white/10 overflow-hidden flex items-center justify-center text-gray-500 font-black text-xs shadow-xl">
                     {post.titleImage ? (
-                       <img src={`${BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
+                      <img src={`${BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
                     ) : (
-                       <span className="uppercase">{post.title.charAt(0)}</span>
+                      <span className="uppercase">{post.title.charAt(0)}</span>
                     )}
                   </div>
                   <div className={`absolute -top-1 -left-1 w-6 h-6 bg-red-600 text-white rounded-full flex items-center justify-center text-[9px] font-black border-2 border-[#0a0a0a] shadow-lg`}>
