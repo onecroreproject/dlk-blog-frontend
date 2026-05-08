@@ -108,7 +108,7 @@ function NavBar() {
                   .map((blog) => (
                     <Link
                       key={blog._id}
-                      to={`/blog/${blog._id}`}
+                      to={`/blog/${blog.slug || blog._id}`}
                       onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
                       className="group flex items-center gap-4 p-4 rounded-3xl bg-gray-50 hover:bg-green-50 border border-transparent hover:border-green-100 transition-all"
                     >
@@ -225,7 +225,7 @@ function NavBar() {
                     {newsBlogs.map((blog) => (
                       <Link
                         key={blog._id}
-                        to={`/blog/${blog._id}`}
+                        to={`/blog/${blog.slug || blog._id}`}
                         className="block px-6 py-3 text-sm font-bold text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors border-b border-gray-50 last:border-0"
                       >
                         {blog.title}

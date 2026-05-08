@@ -83,7 +83,7 @@ const ImageSlider = () => {
 
           return (
             <Link
-              to={`/blog/${blog._id}`}
+              to={`/blog/${blog.slug || blog._id}`}
               key={`${blog._id}-${index}`}
               className={`relative flex-shrink-0 h-[450px] rounded-[40px] overflow-hidden cursor-pointer group shadow-2xl block ${isTransitioning ? 'transition-all duration-700 ease-in-out' : ''}`}
               style={{

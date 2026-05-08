@@ -63,7 +63,7 @@ const BreakingNewsSection = () => {
              ))
           ) : leftPosts.length > 0 ? (
             leftPosts.map((post) => (
-              <Link to={`/blog/${post._id}`} key={post._id} className="flex flex-col md:flex-row gap-6 group cursor-pointer bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+              <Link to={`/blog/${post.slug || post._id}`} key={post._id} className="flex flex-col md:flex-row gap-6 group cursor-pointer bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
                 <div className="md:w-2/5 h-48 md:h-auto bg-gray-200 overflow-hidden relative">
                   {post.titleImage ? (
                     <img 
@@ -117,7 +117,7 @@ const BreakingNewsSection = () => {
              [...Array(2)].map((_, i) => <div key={i} className="flex-1 min-h-[350px] bg-gray-100 rounded-3xl animate-pulse"></div>)
           ) : rightPosts.length > 0 ? (
             rightPosts.map((post, idx) => (
-              <Link to={`/blog/${post._id}`} key={post._id} className="relative flex-1 min-h-[350px] rounded-3xl overflow-hidden group cursor-pointer shadow-2xl block border border-gray-100">
+              <Link to={`/blog/${post.slug || post._id}`} key={post._id} className="relative flex-1 min-h-[350px] rounded-3xl overflow-hidden group cursor-pointer shadow-2xl block border border-gray-100">
                 {post.titleImage ? (
                   <img 
                     src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`} 

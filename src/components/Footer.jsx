@@ -129,12 +129,12 @@ const Footer = () => {
             <h3 className="text-xl font-black mb-10 tracking-tight">Top Categories</h3>
             <div className="flex flex-col gap-4">
               {topCategories.map((cat, i) => (
-                <div key={i} className="flex items-center justify-between bg-white rounded-full p-1 pl-6 group cursor-pointer hover:bg-red-600 transition-all duration-300">
+                <Link to={`/category/${cat.name.toLowerCase().replace(/ /g, '-')}`} key={i} className="flex items-center justify-between bg-white rounded-full p-1 pl-6 group cursor-pointer hover:bg-red-600 transition-all duration-300">
                   <span className="text-black font-black text-sm group-hover:text-white">{cat.name}</span>
                   <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-xs group-hover:bg-white group-hover:text-red-600">
                     {cat.count}
                   </div>
-                </div>
+                </Link>
               ))}
               {topCategories.length === 0 && <span className="text-gray-500 text-xs italic">No categories found</span>}
             </div>
@@ -145,9 +145,9 @@ const Footer = () => {
             <h3 className="text-xl font-black mb-10 tracking-tight">Popular Tags</h3>
             <div className="flex flex-wrap gap-2">
               {popularTags.map((tag, i) => (
-                <span key={i} className="bg-white text-black px-4 py-2 rounded-full text-[11px] font-black uppercase tracking-wider cursor-pointer hover:bg-red-600 hover:text-white transition-all">
+                <Link to={`/tag/${tag}`} key={i} className="bg-white text-black px-4 py-2 rounded-full text-[11px] font-black uppercase tracking-wider cursor-pointer hover:bg-red-600 hover:text-white transition-all">
                   {tag}
-                </span>
+                </Link>
               ))}
               {popularTags.length === 0 && <span className="text-gray-500 text-xs italic">No tags found</span>}
             </div>
@@ -158,7 +158,7 @@ const Footer = () => {
             <h3 className="text-xl font-black mb-10 tracking-tight">Recent Post</h3>
             <div className="flex flex-col gap-8">
               {recentPosts.map((post) => (
-                <Link to={`/blog/${post._id}`} key={post._id} className="flex items-center gap-4 group cursor-pointer">
+                <Link to={`/blog/${post.slug || post._id}`} key={post._id} className="flex items-center gap-4 group cursor-pointer">
                   <div className="w-16 h-16 rounded-full bg-gray-800 border-2 border-white/10 overflow-hidden flex-shrink-0">
                     <img
                       src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`}
@@ -184,7 +184,7 @@ const Footer = () => {
             <h3 className="text-xl font-black mb-10 tracking-tight">Instagram Feed</h3>
             <div className="grid grid-cols-3 gap-2">
               {instaImages.map((blog) => (
-                <Link to={`/blog/${blog._id}`} key={blog._id} className="aspect-square bg-gray-800 rounded-lg overflow-hidden cursor-pointer group relative">
+                <Link to={`/blog/${blog.slug || blog._id}`} key={blog._id} className="aspect-square bg-gray-800 rounded-lg overflow-hidden cursor-pointer group relative">
                   <img
                     src={`${import.meta.env.VITE_BASE_URL}/${blog.titleImage}`}
                     alt=""

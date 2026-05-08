@@ -65,7 +65,7 @@ const FeaturedSection = () => {
 
         {/* Left Section: Main Featured Post */}
         {mainPost ? (
-          <Link to={`/blog/${mainPost._id}`} className="lg:col-span-2 relative h-[600px] group cursor-pointer overflow-hidden block">
+          <Link to={`/blog/${mainPost.slug || mainPost._id}`} className="lg:col-span-2 relative h-[600px] group cursor-pointer overflow-hidden block">
             {/* Main Image */}
             {mainPost.titleImage ? (
               <img
@@ -117,7 +117,7 @@ const FeaturedSection = () => {
 
           {/* Top Sidebar Post */}
           {sidebarTop ? (
-            <Link to={`/blog/${sidebarTop._id}`} className="relative h-56 rounded-3xl overflow-hidden group cursor-pointer block border border-white/5 shadow-2xl">
+            <Link to={`/blog/${sidebarTop.slug || sidebarTop._id}`} className="relative h-56 rounded-3xl overflow-hidden group cursor-pointer block border border-white/5 shadow-2xl">
               {sidebarTop.titleImage ? (
                 <img src={`${BASE_URL}/${sidebarTop.titleImage}`} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               ) : (
@@ -141,7 +141,7 @@ const FeaturedSection = () => {
           {/* List Posts */}
           <div className="flex flex-col gap-8">
             {listPosts.map((post, idx) => (
-              <Link to={`/blog/${post._id}`} key={post._id} className="flex gap-4 items-center group cursor-pointer">
+              <Link to={`/blog/${post.slug || post._id}`} key={post._id} className="flex gap-4 items-center group cursor-pointer">
                 <div className="relative flex-shrink-0">
                   <div className="w-16 h-16 rounded-full bg-gray-900 border-2 border-white/10 overflow-hidden flex items-center justify-center text-gray-500 font-black text-xs shadow-xl">
                     {post.titleImage ? (

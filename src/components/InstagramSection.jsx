@@ -41,12 +41,6 @@ const InstagramSection = () => {
           </div>
         </div>
 
-        {/* Footer Hint */}
-        <div className="mt-12 text-center animate-bounce">
-          <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em]">
-            Click to Play • Scroll for More
-          </p>
-        </div>
       </div>
     </section>
   );

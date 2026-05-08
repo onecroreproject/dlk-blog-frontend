@@ -73,7 +73,7 @@ const FeaturedPosts = () => {
         {/* Left Column: Horizontal Cards */}
         <div className="flex flex-col gap-8">
           {horizontalPosts.length > 0 ? horizontalPosts.map((post) => (
-            <Link to={`/blog/${post._id}`} key={post._id} className="flex flex-col md:flex-row gap-6 group cursor-pointer bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+            <Link to={`/blog/${post.slug || post._id}`} key={post._id} className="flex flex-col md:flex-row gap-6 group cursor-pointer bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
               <div className="md:w-2/5 h-48 md:h-auto bg-gray-200 overflow-hidden relative">
                 {post.titleImage ? (
                   <img src={`${BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -112,7 +112,7 @@ const FeaturedPosts = () => {
         {/* Right Column: Grid Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {gridPosts.length > 0 ? gridPosts.map((post) => (
-            <Link to={`/blog/${post._id}`} key={post._id} className="relative h-[350px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg border border-gray-100 block">
+            <Link to={`/blog/${post.slug || post._id}`} key={post._id} className="relative h-[350px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg border border-gray-100 block">
               {post.titleImage ? (
                 <img src={`${BASE_URL}/${post.titleImage}`} alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               ) : (

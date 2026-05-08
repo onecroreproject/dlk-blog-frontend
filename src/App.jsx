@@ -8,6 +8,7 @@ import CategoryPage from './pages/CategoryPage'
 import AuthorPage from './pages/AuthorPage'
 import ContactPage from './pages/ContactPage'
 import PostBlogPage from './pages/PostBlogPage'
+import TagPage from './pages/TagPage'
 import Footer from './components/Footer'
 
 function App() {
@@ -19,8 +20,9 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/blog/:id" element={<BlogDetailsPage />} />
+          <Route path="/blog/:idOrSlug" element={<BlogDetailsPage />} />
           <Route path="/category/:name" element={<CategoryPage />} />
+          <Route path="/tag/:tag" element={<TagPage />} />
           <Route path="/author/:name" element={<AuthorPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/post-blog" element={<PostBlogPage />} />

@@ -13,7 +13,9 @@ const CategoryPage = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
+      setLoading(true);
       try {
         const [blogsRes, catsRes] = await Promise.all([
           axios.get(`${import.meta.env.VITE_API_URL}/blogs`),
@@ -133,7 +135,7 @@ const CategoryPage = () => {
                     </div>
 
                     <h2 className="text-3xl font-black text-gray-900 leading-tight mb-6 group-hover:text-red-600 transition-colors">
-                      <Link to={`/blog/${post._id}`}>{post.title}</Link>
+                      <Link to={`/blog/${post.slug || post._id}`}>{post.title}</Link>
                     </h2>
 
                     <div
@@ -141,7 +143,7 @@ const CategoryPage = () => {
                       className="text-gray-500 font-medium leading-relaxed mb-8 line-clamp-3 text-sm"
                     ></div>
 
-                    <Link to={`/blog/${post._id}`}>
+                    <Link to={`/blog/${post.slug || post._id}`}>
                       <button className="bg-red-600 text-white font-black text-[11px] uppercase tracking-[2px] px-8 py-4 rounded-xl hover:bg-red-700 transition-all shadow-lg shadow-red-100 mb-8">
                         Read More
                       </button>
@@ -183,7 +185,7 @@ const CategoryPage = () => {
               <h3 className="text-xl font-black text-gray-900 mb-8 border-l-4 border-red-600 pl-4 uppercase tracking-tighter">Most Recent</h3>
               <div className="flex flex-col gap-8">
                 {recentPosts.map((post, i) => (
-                  <Link to={`/blog/${post._id}`} key={post._id} className="flex gap-4 items-center group cursor-pointer">
+                  <Link to={`/blog/${post.slug || post._id}`} key={post._id} className="flex gap-4 items-center group cursor-pointer">
                     <div className="relative flex-shrink-0">
                       <div className="w-16 h-16 rounded-full bg-gray-50 border-2 border-white shadow-sm overflow-hidden flex items-center justify-center text-[10px] text-gray-400 font-bold">
                         {post.titleImage ? (

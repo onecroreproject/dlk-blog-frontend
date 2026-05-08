@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 
 const BlogDetailsPage = () => {
-  const { id } = useParams();
+  const { idOrSlug } = useParams();
   const [blog, setBlog] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -17,10 +17,19 @@ const BlogDetailsPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
+      setLoading(true);
       try {
+        setLoading(true);
+        // Check if idOrSlug is likely a MongoDB ID or a slug
+        const isMongoId = /^[0-9a-fA-F]{24}$/.test(idOrSlug);
+        const blogUrl = isMongoId 
+          ? `${import.meta.env.VITE_API_URL}/blogs/${idOrSlug}`
+          : `${import.meta.env.VITE_API_URL}/blogs/slug/${idOrSlug}`;
+
         const [blogRes, allBlogsRes, catsRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_API_URL}/blogs/${id}`),
+          axios.get(blogUrl),
           axios.get(`${import.meta.env.VITE_API_URL}/blogs`),
           axios.get(`${import.meta.env.VITE_API_URL}/categories`)
         ]);
@@ -48,7 +57,7 @@ const BlogDetailsPage = () => {
     }, 60000); // 60,000ms = 1 minutes
 
     return () => clearTimeout(viewTimer);
-  }, [id]);
+  }, [idOrSlug]);
 
   const handleShare = async (platform) => {
     const url = window.location.href;
@@ -93,7 +102,7 @@ const BlogDetailsPage = () => {
     .slice(0, 3);
 
   // Prev/Next Blogs
-  const currentIndex = blogs.findIndex(b => b._id === id);
+  const currentIndex = blogs.findIndex(b => b._id === blog._id);
   const prevBlog = currentIndex > 0 ? blogs[currentIndex - 1] : null;
   const nextBlog = currentIndex < blogs.length - 1 ? blogs[currentIndex + 1] : null;
 
@@ -215,7 +224,7 @@ const BlogDetailsPage = () => {
             {/* Prev/Next Navigation */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
               {prevBlog ? (
-                <Link to={`/blog/${prevBlog._id}`} className="flex items-center gap-4 p-6 bg-white rounded-xl shadow-sm border border-gray-50 hover:border-red-100 transition-all group">
+                <Link to={`/blog/${prevBlog.slug || prevBlog._id}`} className="flex items-center gap-4 p-6 bg-white rounded-xl shadow-sm border border-gray-50 hover:border-red-100 transition-all group">
                   <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
                     <img src={`${import.meta.env.VITE_BASE_URL}/${prevBlog.titleImage}`} alt="" className="w-full h-full object-cover" />
                   </div>
@@ -226,7 +235,7 @@ const BlogDetailsPage = () => {
                 </Link>
               ) : <div />}
               {nextBlog && (
-                <Link to={`/blog/${nextBlog._id}`} className="flex items-center justify-end gap-4 p-6 bg-white rounded-xl shadow-sm border border-gray-50 hover:border-red-100 transition-all group text-right">
+                <Link to={`/blog/${nextBlog.slug || nextBlog._id}`} className="flex items-center justify-end gap-4 p-6 bg-white rounded-xl shadow-sm border border-gray-50 hover:border-red-100 transition-all group text-right">
                   <div>
                     <div className="text-[10px] font-black text-gray-300 uppercase tracking-widest mb-1">Next Post</div>
                     <h4 className="text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1">{nextBlog.title}</h4>
@@ -303,7 +312,7 @@ const BlogDetailsPage = () => {
               </div>
               <div className="p-6 space-y-6">
                 {recentBlogs.map(post => (
-                  <Link key={post._id} to={`/blog/${post._id}`} className="flex items-center gap-4 group">
+                  <Link key={post._id} to={`/blog/${post.slug || post._id}`} className="flex items-center gap-4 group">
                     <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2 border-gray-100 shadow-sm group-hover:border-red-600 transition-all">
                       <img src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
                     </div>
