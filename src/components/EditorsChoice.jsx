@@ -49,14 +49,20 @@ const EditorsChoice = () => {
 
   return (
     <section className="bg-green-700 py-16 mt-12">
-      <div className="container mx-auto px-6">
+      <div className="w-full px-4 lg:px-8">
 
         {/* Header Section */}
         <div className="flex flex-col items-center mb-12">
-          <div className="flex items-center gap-4 w-full justify-center mb-8">
-            <div className="h-[2px] bg-white/20 flex-grow max-w-[200px]"></div>
-            <h2 className="text-white text-3xl font-black uppercase tracking-widest text-center">Editor's Choice</h2>
-            <div className="h-[2px] bg-white/20 flex-grow max-w-[200px]"></div>
+          <div className="flex items-center gap-8 w-full justify-center mb-8">
+            <div className="flex-grow flex flex-col gap-1">
+              <div className="h-px w-full bg-white/20"></div>
+              <div className="h-px w-full bg-white/20"></div>
+            </div>
+            <h2 className="text-white text-4xl font-black text-center whitespace-nowrap">Editor's Choice</h2>
+            <div className="flex-grow flex flex-col gap-1">
+              <div className="h-px w-full bg-white/20"></div>
+              <div className="h-px w-full bg-white/20"></div>
+            </div>
           </div>
 
           <div className="flex gap-8 overflow-x-auto pb-4 no-scrollbar">
@@ -64,7 +70,7 @@ const EditorsChoice = () => {
               <button
                 key={cat}
                 onClick={() => setActiveTab(cat)}
-                className={`text-[10px] md:text-xs font-bold tracking-tighter transition-colors whitespace-nowrap ${activeTab === cat ? 'text-white border-b-2 border-green-400 pb-1' : 'text-white/60 hover:text-white'}`}
+                className={`text-xs md:text-sm font-bold transition-colors whitespace-nowrap ${activeTab === cat ? 'text-white border-b-2 border-green-400 pb-1' : 'text-white/60 hover:text-white'}`}
               >
                 {cat}
               </button>
@@ -86,30 +92,30 @@ const EditorsChoice = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-900 flex items-center justify-center text-gray-700 font-bold text-4xl">
+                  <div className="w-full h-full bg-gray-900 flex items-center justify-center text-gray-700 font-bold text-5xl">
                     {mainPost.title.charAt(0)}
                   </div>
                 )}
 
                 {/* Play Button Overlay */}
                 <div className="absolute top-8 left-8 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform z-10">
-                  <FaPlay className="text-green-700 ml-1 text-xl" />
+                  <FaPlay className="text-green-700 ml-1 text-2xl" />
                 </div>
 
                 {/* Bottom Content Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent flex flex-col justify-end p-10">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white text-[10px] font-bold uppercase">
+                    <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white text-xs font-bold">
                       {mainPost.author?.charAt(0)}
                     </div>
-                    <span className="text-white text-sm font-bold">
+                    <span className="text-white text-base font-bold">
                       by {mainPost.author} • {new Date(mainPost.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </span>
                   </div>
-                  <h3 className="text-white text-3xl font-bold leading-tight mb-4 group-hover:text-green-400 transition-colors">
+                  <h3 className="text-white text-4xl font-bold leading-tight mb-4 group-hover:text-green-400 transition-colors">
                     {mainPost.title}
                   </h3>
-                  <div className="flex items-center gap-3 text-xs font-bold uppercase text-white/70">
+                  <div className="flex items-center gap-3 text-sm font-bold text-white/70">
                     <span className="text-green-400">{mainPost.category}</span>
                     <span>•</span>
                     <span>1 min read</span>
@@ -130,7 +136,7 @@ const EditorsChoice = () => {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold text-2xl uppercase">
+                      <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold text-3xl">
                         {post.title.charAt(0)}
                       </div>
                     )}
@@ -142,15 +148,15 @@ const EditorsChoice = () => {
                   </div>
                   <div className="p-5 flex flex-col flex-grow">
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="w-6 h-6 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-red-600 text-[8px] font-black uppercase">
+                      <div className="w-6 h-6 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-red-600 text-[10px] font-black">
                         {post.author?.charAt(0)}
                       </div>
-                      <span className="text-[10px] text-gray-500 font-bold">by {post.author} • {new Date(post.createdAt).toLocaleDateString()}</span>
+                      <span className="text-xs text-gray-500 font-bold">by {post.author} • {new Date(post.createdAt).toLocaleDateString()}</span>
                     </div>
-                    <h4 className="text-gray-900 font-bold text-sm leading-snug mb-4 group-hover:text-green-600 transition-colors line-clamp-2">
+                    <h4 className="text-gray-900 font-bold text-base leading-snug mb-4 group-hover:text-green-600 transition-colors line-clamp-2">
                       {post.title}
                     </h4>
-                    <div className="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase text-gray-400">
+                    <div className="mt-auto flex items-center gap-2 text-xs font-bold text-gray-400">
                       <span className="text-blue-600">{post.category}</span>
                       <span>•</span>
                       <span>1 min read</span>
@@ -163,8 +169,8 @@ const EditorsChoice = () => {
           </div>
         ) : (
           <div className="py-20 text-center bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm">
-            <p className="text-white/40 font-black uppercase tracking-widest text-lg">No editor's choice stories found for this period</p>
-            <p className="text-white/20 text-xs mt-2 uppercase font-bold">Check back later for fresh updates</p>
+            <p className="text-white/40 font-black  text-xl">No editor's choice stories found for this period</p>
+            <p className="text-white/20 text-sm mt-2 font-bold">Check back later for fresh updates</p>
           </div>
         )}
 

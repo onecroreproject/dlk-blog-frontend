@@ -24,7 +24,7 @@ const CategoryColumnsSection = () => {
         const processed = allCats.map(cat => {
           const catBlogs = allBlogs.filter(b => b.category === cat.name);
           if (catBlogs.length === 0) return null;
-          
+
           return {
             title: cat.name,
             mainPost: catBlogs[0],
@@ -71,11 +71,11 @@ const CategoryColumnsSection = () => {
   ];
 
   return (
-    <section className="container mx-auto px-6 py-12">
+    <section className="w-full px-4 lg:px-8 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        
+
         {/* Category Columns (Shows 3 at a time) */}
-        <div 
+        <div
           className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
@@ -84,7 +84,7 @@ const CategoryColumnsSection = () => {
             visibleCategories.map((section, idx) => (
               <div key={idx} className="flex flex-col gap-6 animate-fade-in">
                 <div className="flex items-center gap-4 mb-2">
-                  <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter">{section.title}</h2>
+                  <h2 className="text-3xl font-black text-gray-900">{section.title}</h2>
                   <div className="flex-grow h-[1px] bg-gray-200"></div>
                 </div>
 
@@ -93,13 +93,13 @@ const CategoryColumnsSection = () => {
                   {section.mainPost.titleImage ? (
                     <img src={`${import.meta.env.VITE_BASE_URL}/${section.mainPost.titleImage}`} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   ) : (
-                    <div className="w-full h-full bg-gray-900 flex items-center justify-center text-gray-700 font-bold text-xs uppercase">{section.mainPost.title.charAt(0)}</div>
+                    <div className="w-full h-full bg-gray-900 flex items-center justify-center text-gray-700 font-bold text-sm">{section.mainPost.title.charAt(0)}</div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-5 flex flex-col justify-end">
-                    <h3 className="text-white font-bold text-sm leading-snug group-hover:text-red-500 transition-colors line-clamp-2">
+                    <h3 className="text-white font-bold text-base leading-snug group-hover:text-red-500 transition-colors line-clamp-2">
                       {section.mainPost.title}
                     </h3>
-                    <div className="flex items-center gap-2 text-[10px] text-gray-400 mt-2 font-bold uppercase tracking-widest">
+                    <div className="flex items-center gap-2 text-xs text-gray-400 mt-2 font-bold ">
                       <span className="text-red-500">{section.mainPost.category}</span>
                       <span>•</span>
                       <span>{new Date(section.mainPost.createdAt).toLocaleDateString()}</span>
@@ -111,18 +111,18 @@ const CategoryColumnsSection = () => {
                 <div className="flex flex-col gap-6 mt-2">
                   {section.listPosts.map((post) => (
                     <Link to={`/blog/${post._id}`} key={post._id} className="flex gap-4 items-start group cursor-pointer">
-                      <div className="w-16 h-16 rounded-full bg-gray-50 flex-shrink-0 border border-gray-100 overflow-hidden flex items-center justify-center text-gray-300 font-bold text-[10px]">
+                      <div className="w-16 h-16 rounded-full bg-gray-50 flex-shrink-0 border border-gray-100 overflow-hidden flex items-center justify-center text-gray-300 font-bold text-xs">
                         {post.titleImage ? (
-                           <img src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
+                          <img src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
                         ) : (
-                           <span className="uppercase">{post.title.charAt(0)}</span>
+                          <span className="uppercase">{post.title.charAt(0)}</span>
                         )}
                       </div>
                       <div>
-                        <h4 className="text-sm font-bold text-gray-900 leading-snug mb-2 group-hover:text-red-600 transition-colors line-clamp-2">
+                        <h4 className="text-base font-bold text-gray-900 leading-snug mb-2 group-hover:text-red-600 transition-colors line-clamp-2">
                           {post.title}
                         </h4>
-                        <div className="flex items-center gap-2 text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+                        <div className="flex items-center gap-2 text-xs text-gray-400 font-bold tracking-wider">
                           <span className="text-red-600">{post.category}</span>
                           <span>•</span>
                           <span>{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
@@ -152,20 +152,20 @@ const CategoryColumnsSection = () => {
 
         {/* Social Sidebar */}
         <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm flex flex-col gap-8 h-fit">
-          <h3 className="text-lg font-bold text-gray-900 mb-2 uppercase tracking-tight">Connect With Us</h3>
-          
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Connect With Us</h3>
+
           <div className="grid grid-cols-2 gap-4">
             {socialLinks.map((social, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className={`${social.color} rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-90 transition-opacity gap-2 h-24`}
               >
-                <div className="text-white text-xl">
+                <div className="text-white text-2xl">
                   {social.icon}
                 </div>
                 <div>
-                  <p className="text-white font-bold text-[11px] leading-none uppercase tracking-tighter">{social.name}</p>
-                  <p className="text-white/70 text-[9px] mt-1 font-bold">{social.followers}</p>
+                  <p className="text-white font-bold text-[11px] leading-none">{social.name}</p>
+                  <p className="text-white/70 text-[11px] mt-1 font-bold">{social.followers}</p>
                 </div>
               </div>
             ))}

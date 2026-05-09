@@ -23,7 +23,7 @@ const InstagramSection = () => {
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full px-4 lg:px-8">
         {/* Section Header with Gradient Underline Effect */}
        
 

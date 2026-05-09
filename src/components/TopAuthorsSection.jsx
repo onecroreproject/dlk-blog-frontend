@@ -56,14 +56,17 @@ const TopAuthorsSection = () => {
   }, []);
 
   return (
-    <section className="container mx-auto px-6 py-12">
+    <section className="w-full px-4 lg:px-8 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
         {/* Left Column: Top Tech Authors */}
         <div className="lg:col-span-2">
           <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-2xl font-black text-gray-900 whitespace-nowrap uppercase tracking-tighter">Top Tech Author</h2>
-            <div className="flex-grow h-[1px] bg-gray-200"></div>
+            <h2 className="text-3xl font-black text-gray-900 whitespace-nowrap">Top Tech Author</h2>
+            <div className="flex-grow flex flex-col gap-1">
+              <div className="h-px w-full bg-gray-200"></div>
+              <div className="h-px w-full bg-gray-200"></div>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
@@ -78,11 +81,11 @@ const TopAuthorsSection = () => {
                     {author.avatar ? (
                       <img src={`${import.meta.env.VITE_BASE_URL}/${author.avatar}`} alt="" className="w-full h-full object-cover" />
                     ) : (
-                      <span className="text-xl font-black text-gray-300">{author.name.charAt(0)}</span>
+                      <span className="text-2xl font-black text-gray-300">{author.name.charAt(0)}</span>
                     )}
                   </div>
-                  <h3 className="text-sm font-black text-gray-900 mb-1 group-hover:text-red-600 transition-colors">{author.name}</h3>
-                  <p className="text-[10px] text-gray-400 font-black uppercase tracking-tight">{author.articles} Articles</p>
+                  <h3 className="text-base font-black text-gray-900 mb-1 group-hover:text-red-600 transition-colors">{author.name}</h3>
+                  <p className="text-xs text-gray-400 font-black">{author.articles} Articles</p>
                 </Link>
               ))
             ) : (
@@ -102,14 +105,14 @@ const TopAuthorsSection = () => {
 
           {/* Recent Post Thumbnails */}
           <div className="mb-10">
-            <h3 className="text-lg font-black text-gray-900 mb-6 uppercase tracking-tight">Recent Post</h3>
+            <h3 className="text-xl font-black text-gray-900 mb-6">Recent Post</h3>
             <div className="grid grid-cols-3 gap-3">
               {recentThumbnails.length > 0 ? (
                 recentThumbnails.map((blog) => (
                   <Link
                     to={`/blog/${blog._id}`}
                     key={blog._id}
-                    className="aspect-square bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center text-[10px] text-gray-400 font-bold hover:opacity-80 transition-opacity"
+                    className="aspect-square bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center text-xs text-gray-400 font-bold hover:opacity-80 transition-opacity"
                   >
                     {blog.titleImage ? (
                       <img src={`${import.meta.env.VITE_BASE_URL}/${blog.titleImage}`} alt="" className="w-full h-full object-cover" />
@@ -126,12 +129,12 @@ const TopAuthorsSection = () => {
 
           {/* Must Read Section */}
           <div>
-            <h3 className="text-lg font-black text-gray-900 mb-6 uppercase tracking-tight">Must Read</h3>
+            <h3 className="text-xl font-black text-gray-900 mb-6">Must Read</h3>
             <div className="flex flex-col gap-6">
               {mustRead.length > 0 ? (
                 mustRead.map((post) => (
                   <Link to={`/blog/${post._id}`} key={post._id} className="flex gap-4 group cursor-pointer items-center">
-                    <div className="w-16 h-16 rounded-full bg-gray-100 flex-shrink-0 border border-gray-200 overflow-hidden flex items-center justify-center text-gray-400 font-bold text-[10px] shadow-sm">
+                    <div className="w-16 h-16 rounded-full bg-gray-100 flex-shrink-0 border border-gray-200 overflow-hidden flex items-center justify-center text-gray-400 font-bold text-xs shadow-sm">
                       {post.titleImage ? (
                         <img src={`${import.meta.env.VITE_BASE_URL}/${post.titleImage}`} alt="" className="w-full h-full object-cover" />
                       ) : (
@@ -139,10 +142,10 @@ const TopAuthorsSection = () => {
                       )}
                     </div>
                     <div>
-                      <h4 className="text-[13px] font-black text-gray-900 leading-tight mb-2 group-hover:text-red-600 transition-colors line-clamp-2">
+                      <h4 className="text-[15px] font-black text-gray-900 leading-tight mb-2 group-hover:text-red-600 transition-colors line-clamp-2">
                         {post.title}
                       </h4>
-                      <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-gray-400">
+                      <div className="flex items-center gap-2 text-[11px] font-black  text-gray-400">
                         <span className="text-red-600">{post.category}</span>
                         <span>•</span>
                         <span>{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>

@@ -43,7 +43,7 @@ const PostBlogPage = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
-  
+
   const handleAddTag = (e) => {
     if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
@@ -188,7 +188,7 @@ const PostBlogPage = () => {
     formData.append('category', category);
     formData.append('content', content);
     formData.append('tags', JSON.stringify(tags));
-    
+
     if (authorAvatar) formData.append('authorAvatar', authorAvatar);
     if (images.titleImage) formData.append('titleImage', images.titleImage);
     if (images.blogImage1) formData.append('blogImage1', images.blogImage1);
@@ -240,7 +240,7 @@ const PostBlogPage = () => {
         </button>
         {!isAvatar && (
           <div className="absolute bottom-3 left-3 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full z-10">
-            <span className="text-[8px] text-white font-black uppercase tracking-widest">
+            <span className="text-[10px] text-white font-black ">
               {type === 'titleImage' ? 'Title' : `Inline ${type.slice(-1)}`}
             </span>
           </div>
@@ -251,13 +251,13 @@ const PostBlogPage = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen py-12 px-6">
-      <div className="container mx-auto max-w-4xl">
-        <div className="bg-white rounded-[40px] shadow-2xl overflow-hidden border border-gray-100">
+      <div className="w-full max-w-4xl">
+        <div className="bg-white rounded-[10px] shadow-2xl overflow-hidden border border-gray-100">
           {/* Header */}
           <div className="bg-gradient-to-r from-red-600 to-red-500 py-12 px-10 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
             <div className="relative z-10">
-              <h1 className="text-4xl font-black mb-2 tracking-tight">Create New Blog</h1>
+              <h1 className="text-5xl font-black mb-2">Create New Blog</h1>
               <p className="text-white/80 font-medium">Share your thoughts and stories with the world.</p>
             </div>
           </div>
@@ -266,7 +266,7 @@ const PostBlogPage = () => {
             {/* Title & Category Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-black text-gray-900 uppercase tracking-widest ml-1">
+                <label className="flex items-center gap-2 text-sm font-black text-gray-900  ml-1">
                   <FaHeading className="text-red-600" /> Post Title
                 </label>
                 <input
@@ -279,13 +279,13 @@ const PostBlogPage = () => {
                 />
               </div>
               <div className="space-y-2 relative">
-                <label className="flex items-center gap-2 text-xs font-black text-gray-900 uppercase tracking-widest ml-1">
+                <label className="flex items-center gap-2 text-sm font-black text-gray-900  ml-1">
                   <FaTags className="text-red-600" /> Category
                 </label>
-                
+
                 {/* Custom Searchable Dropdown */}
                 <div className="relative">
-                  <div 
+                  <div
                     onClick={() => setIsCategoryOpen(!isCategoryOpen)}
                     className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl py-4 px-6 cursor-pointer flex justify-between items-center group focus-within:border-red-600 transition-all"
                   >
@@ -300,22 +300,22 @@ const PostBlogPage = () => {
                       <div className="p-4 border-b border-gray-50">
                         <div className="relative">
                           <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                          <input 
-                            type="text" 
+                          <input
+                            type="text"
                             placeholder="Search categories..."
-                            className="w-full bg-gray-50 border-none rounded-xl py-3 pl-11 pr-4 text-sm outline-none focus:ring-2 focus:ring-red-100"
+                            className="w-full bg-gray-50 border-none rounded-xl py-3 pl-11 pr-4 text-base outline-none focus:ring-2 focus:ring-red-100"
                             value={categorySearch}
                             onChange={(e) => setCategorySearch(e.target.value)}
                             onClick={(e) => e.stopPropagation()}
                           />
                         </div>
                       </div>
-                      
+
                       <div className="max-h-[250px] overflow-y-auto py-2 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
                         {categories
                           .filter(cat => cat.name.toLowerCase().includes(categorySearch.toLowerCase()))
                           .map((cat) => (
-                            <div 
+                            <div
                               key={cat._id}
                               onClick={() => {
                                 setCategory(cat.name);
@@ -329,7 +329,7 @@ const PostBlogPage = () => {
                           ))}
 
                         {categories.filter(cat => cat.name.toLowerCase().includes(categorySearch.toLowerCase())).length === 0 && (
-                          <div className="px-6 py-8 text-center text-gray-400 text-sm">
+                          <div className="px-6 py-8 text-center text-gray-400 text-base">
                             No categories found
                           </div>
                         )}
@@ -343,13 +343,13 @@ const PostBlogPage = () => {
 
             {/* Tags Input */}
             <div className="space-y-4">
-              <label className="flex items-center gap-2 text-xs font-black text-gray-900 uppercase tracking-widest ml-1">
+              <label className="flex items-center gap-2 text-sm font-black text-gray-900  ml-1">
                 <FaTags className="text-red-600" /> Article Tags
               </label>
               <div className="bg-gray-50 border-2 border-gray-100 rounded-[32px] p-4 focus-within:border-red-600 transition-all">
                 <div className="flex flex-wrap gap-2 mb-2">
                   {tags.map((tag, index) => (
-                    <span key={index} className="bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full flex items-center gap-2 animate-in zoom-in duration-200">
+                    <span key={index} className="bg-red-600 text-white text-xs font-black  px-4 py-2 rounded-full flex items-center gap-2 animate-in zoom-in duration-200">
                       {tag}
                       <button type="button" onClick={() => removeTag(tag)} className="hover:text-black transition-colors">
                         <FaTimes size={10} />
@@ -366,13 +366,13 @@ const PostBlogPage = () => {
                   className="w-full bg-transparent border-none outline-none font-medium text-gray-700 px-2 py-2"
                 />
               </div>
-              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest ml-4">Press Enter or Comma to add a tag</p>
+              <p className="text-xs text-gray-400 font-bold  ml-4">Press Enter or Comma to add a tag</p>
             </div>
 
             {/* Author & Avatar */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-black text-gray-900 uppercase tracking-widest ml-1">
+                <label className="flex items-center gap-2 text-sm font-black text-gray-900  ml-1">
                   <FaUser className="text-red-600" /> Author Name
                 </label>
                 <input
@@ -385,7 +385,7 @@ const PostBlogPage = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-black text-gray-900 uppercase tracking-widest ml-1">
+                <label className="flex items-center gap-2 text-sm font-black text-gray-900  ml-1">
                   Author Avatar
                 </label>
                 <div className="flex items-center gap-6">
@@ -394,13 +394,13 @@ const PostBlogPage = () => {
                       htmlFor="authorAvatar"
                       className="w-20 h-20 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center cursor-pointer hover:border-red-400 hover:bg-red-50/50 transition-all"
                     >
-                      <FaUser className="text-gray-300 text-xl" />
+                      <FaUser className="text-gray-300 text-2xl" />
                       <input type="file" id="authorAvatar" className="hidden" accept="image/*" onChange={(e) => handleImageChange(e, 'authorAvatar')} />
                     </label>
                   ) : (
                     renderMediaPreview('authorAvatar', avatarPreview, true)
                   )}
-                  <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                  <span className="text-xs font-black text-gray-400 ">
                     Upload Avatar <br /> (Optional)
                   </span>
                 </div>
@@ -409,7 +409,7 @@ const PostBlogPage = () => {
 
             {/* Image Upload Section */}
             <div className="space-y-4">
-              <label className="flex items-center gap-2 text-xs font-black text-gray-900 uppercase tracking-widest ml-1">
+              <label className="flex items-center gap-2 text-sm font-black text-gray-900  ml-1">
                 <FaImage className="text-red-600" /> Media Upload (Max 3 Images)
               </label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -427,11 +427,11 @@ const PostBlogPage = () => {
                         htmlFor={type}
                         className="flex flex-col items-center justify-center w-full aspect-[4/3] bg-gray-50 border-2 border-dashed border-gray-200 rounded-3xl cursor-pointer group-hover:border-red-400 group-hover:bg-red-50/50 transition-all"
                       >
-                        <FaCloudUploadAlt className="text-3xl text-gray-300 group-hover:text-red-600 mb-2 transition-colors" />
-                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider group-hover:text-red-600 transition-colors text-center px-4">
+                        <FaCloudUploadAlt className="text-4xl text-gray-300 group-hover:text-red-600 mb-2 transition-colors" />
+                        <span className="text-xs font-black text-gray-400 tracking-wider group-hover:text-red-600 transition-colors text-center px-4">
                           {index === 0 ? 'Title Media' : `Blog Media ${index}`}
                         </span>
-                        <span className="text-[8px] text-gray-400 mt-1 uppercase">(Image/Video)</span>
+                        <span className="text-[10px] text-gray-400 mt-1">(Image/Video)</span>
                       </label>
                     ) : (
                       renderMediaPreview(type, previews[type])
@@ -443,7 +443,7 @@ const PostBlogPage = () => {
 
             {/* Content Editor */}
             <div className="space-y-4">
-              <label className="flex items-center gap-2 text-xs font-black text-gray-900 uppercase tracking-widest ml-1">
+              <label className="flex items-center gap-2 text-sm font-black text-gray-900  ml-1">
                 Content Writer
               </label>
               <div className="bg-gray-50 rounded-3xl overflow-hidden border-2 border-gray-100 focus-within:border-red-600 transition-all">
@@ -464,7 +464,7 @@ const PostBlogPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full ${isSubmitting ? 'bg-gray-400' : 'bg-red-600 hover:bg-red-700 hover:-translate-y-1'} text-white font-black py-6 rounded-2xl shadow-xl shadow-red-100 transition-all uppercase tracking-[4px] text-sm`}
+                className={`w-full ${isSubmitting ? 'bg-gray-400' : 'bg-red-600 hover:bg-red-700 hover:-translate-y-1'} text-white font-black py-6 rounded-2xl shadow-xl shadow-red-100 transition-all tracking-[4px] text-base`}
               >
                 {isSubmitting ? 'Publishing article...' : 'Publish Article Now'}
               </button>
@@ -472,16 +472,16 @@ const PostBlogPage = () => {
           </form>
         </div>
       </div>
-      
+
       {/* Image Cropper Modal */}
       {showCropper && (
         <div className="fixed inset-0 bg-black/90 backdrop-blur-xl z-[100] flex flex-col items-center justify-center p-6">
-          <div className="relative w-full max-w-4xl aspect-video bg-gray-900 rounded-[40px] overflow-hidden shadow-2xl">
+          <div className="relative w-full max-w-4xl aspect-video bg-gray-900 rounded-[10px] overflow-hidden shadow-2xl">
             <Cropper
               image={cropImage}
               crop={crop}
               zoom={zoom}
-              aspect={cropType === 'authorAvatar' ? 1 : 4/3}
+              aspect={cropType === 'authorAvatar' ? 1 : 4 / 3}
               cropShape={cropType === 'authorAvatar' ? 'round' : 'rect'}
               showGrid={true}
               onCropChange={setCrop}
@@ -492,7 +492,7 @@ const PostBlogPage = () => {
 
           <div className="mt-8 flex flex-col items-center gap-6 w-full max-w-md">
             <div className="flex items-center gap-4 w-full">
-              <span className="text-white text-[10px] font-black uppercase tracking-widest">Zoom</span>
+              <span className="text-white text-xs font-black ">Zoom</span>
               <input
                 type="range"
                 value={zoom}
@@ -508,13 +508,13 @@ const PostBlogPage = () => {
             <div className="flex gap-4 w-full">
               <button
                 onClick={() => setShowCropper(false)}
-                className="flex-1 bg-white/10 hover:bg-white/20 text-white font-black py-4 rounded-2xl transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2"
+                className="flex-1 bg-white/10 hover:bg-white/20 text-white font-black py-4 rounded-2xl transition-all  text-sm flex items-center justify-center gap-2"
               >
                 <FaX /> Cancel
               </button>
               <button
                 onClick={handleSaveCrop}
-                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl shadow-xl shadow-red-900/20 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2"
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl shadow-xl shadow-red-900/20 transition-all  text-sm flex items-center justify-center gap-2"
               >
                 <FaCheck /> Apply Crop
               </button>

@@ -77,51 +77,39 @@ function NotifyBar() {
   });
 
   return (
-    <div className="bg-green-200 flex items-center justify-between">
-      <div className="flex items-center">
-        <div className="flex items-center h-10 overflow-hidden max-w-5xl">
-          <div className="bg-[#3aed43] text-white p-6 h-full flex items-center gap-2 font-black text-xs uppercase italic rounded-tr-[40px] rounded-br-[5px] z-10 relative">
-            <FaBolt className="animate-pulse" />
-            <span>Trending:</span>
+    <div className="bg-green-200 w-full border-b border-green-300/50">
+      <div className="w-full px-4 lg:px-8 py-3.5 flex items-center justify-between">
+        
+        {/* Left Section: Trending */}
+        <div className="flex items-center gap-3 overflow-hidden flex-grow">
+          <div className="w-6 h-6 bg-white rounded flex items-center justify-center text-green-500 flex-shrink-0 shadow-sm">
+            <FaBolt className="text-sm" />
           </div>
+          <span className="font-bold text-gray-900 text-[17px] whitespace-nowrap">Trending:</span>
           
-          <div className="px-6 overflow-hidden hidden sm:block grow">
-            <h3 
-              className={`text-xs font-bold text-gray-700 truncate max-w-[900px] transition-all duration-300 transform ${animationClass}`}
-            >
+          <div className="overflow-hidden flex-grow relative flex items-center">
+            <h3 className={`text-[17px] font-medium text-gray-800 truncate max-w-[800px] transition-all duration-300 transform ${animationClass}`}>
               {trendingNews[currentIndex]}
             </h3>
           </div>
-
-          <div className="flex items-center gap-3 text-gray-300 border-l border-gray-100 pl-4 h-1/2 bg-green-200 z-10 relative">
-            <FaChevronLeft 
-              onClick={handlePrev}
-              className="cursor-pointer hover:text-purple-600 transition-colors text-[10px]" 
-            />
-            <div className="h-3 w-px bg-gray-200"></div>
-            <FaChevronRight 
-              onClick={handleNext}
-              className="cursor-pointer hover:text-purple-600 transition-colors text-[10px]" 
-            />
-          </div>
         </div>
-      </div>
 
-      <div className="flex items-center gap-6 text-sm px-4">
-        <h1 className="capitalize font-medium text-lg">
-          {formattedDate}
-        </h1>
-
-        <div className="w-px h-6 bg-white/50"></div>
-
-        <div className="flex items-center gap-4">
-          <h1 className="font-medium text-xs">Follow Us:</h1>
+        {/* Right Section: Date and Socials */}
+        <div className="flex items-center gap-4 text-[17px] text-gray-800 flex-shrink-0 ml-4 hidden md:flex">
+          <span className="font-bold">{formattedDate}</span>
+          
+          <div className="w-px h-4 bg-gray-400/50"></div>
+          
           <div className="flex items-center gap-3">
-            <FaFacebookF className="cursor-pointer hover:text-blue-600 transition text-xs" />
-            <FaLinkedinIn className="cursor-pointer hover:text-blue-700 transition text-xs" />
-            <FaInstagram className="cursor-pointer hover:text-pink-500 transition text-xs" />
+            <span className="font-bold">Follow Us:</span>
+            <div className="flex items-center gap-3 text-gray-600">
+              <FaFacebookF className="cursor-pointer hover:text-gray-900 transition text-[17px]" />
+              <FaLinkedinIn className="cursor-pointer hover:text-gray-900 transition text-[17px]" />
+              <FaInstagram className="cursor-pointer hover:text-gray-900 transition text-[17px]" />
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   );
