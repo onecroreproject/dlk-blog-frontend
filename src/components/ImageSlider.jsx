@@ -18,7 +18,9 @@ const ImageSlider = () => {
 
     useEffect(() => {
         if (!loading && allBlogsFromContext.length > 0) {
-            setBlogs(allBlogsFromContext.slice(0, 5));
+            // Randomize all blogs for a fresh look on every refresh
+            const shuffled = [...allBlogsFromContext].sort(() => Math.random() - 0.5);
+            setBlogs(shuffled);
         }
     }, [allBlogsFromContext, loading]);
 
@@ -41,7 +43,7 @@ const ImageSlider = () => {
     }, []);
 
     const slideCount = blogs.length;
-    const allBlogs = [...blogs, ...blogs]; 
+    const allBlogs = blogs; 
     const { item: itemWidth, active: activeWidth, gap } = widths;
     const autoPlayDelay = 4000;
 
@@ -56,7 +58,7 @@ const ImageSlider = () => {
     const handleNext = () => {
         if (slideCount <= 1) return;
         setIsTransitioning(true);
-        setCurrentIndex((prev) => prev + 1);
+        setCurrentIndex((prev) => (prev + 1) % slideCount);
     };
 
     const handlePrev = () => {
@@ -88,25 +90,19 @@ const ImageSlider = () => {
     };
 
     useEffect(() => {
-        if (slideCount > 0 && currentIndex === slideCount) {
-            const timer = setTimeout(() => {
-                setIsTransitioning(false);
-                setCurrentIndex(0);
-            }, 700);
-            return () => clearTimeout(timer);
-        }
+        // No need for complex loop resetting now that we use simple modulo
     }, [currentIndex, slideCount]);
 
     const calculateOffset = () => {
-        const centerPadding = (window.innerWidth - activeWidth) / 2;
-        return (currentIndex * (itemWidth + gap)) - centerPadding;
+        // Align to the left instead of centering
+        return (currentIndex * (itemWidth + gap));
     };
 
     if (slideCount === 0) return <div className="h-[400px] md:h-[500px] flex items-center justify-center font-black text-gray-200 italic">Loading Featured Stories...</div>;
 
     return (
         <div
-            className="w-full pt-2 pb-8 md:py-16 overflow-hidden bg-white relative"
+            className="w-full pt-2 pb-8 md:py-16 overflow-hidden bg-white relative px-4 lg:px-8"
             ref={containerRef}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
