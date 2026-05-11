@@ -179,6 +179,13 @@ const PostBlogPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validation
+    if (!content || content.trim() === "" || content === "<p><br></p>") {
+      alert("Please enter some content for your blog post.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     const formData = new FormData();
