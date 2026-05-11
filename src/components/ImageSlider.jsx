@@ -102,7 +102,7 @@ const ImageSlider = () => {
 
     return (
         <div
-            className="w-full pt-2 pb-8 md:py-16 overflow-hidden bg-white relative px-4 lg:px-8"
+            className="w-full pt-2 pb-8 md:py-16 overflow-hidden bg-white relative"
             ref={containerRef}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
