@@ -54,15 +54,15 @@ const FeaturedPosts = () => {
   return (
     <section className="w-full px-4 lg:px-8 py-12 mt-10">
       {/* Title Section */}
-      <div className="mb-12 flex items-center justify-between gap-6">
-        <div className="flex items-center gap-4 flex-grow">
-          <h2 className="text-4xl font-black text-gray-900 whitespace-nowrap">More Featured</h2>
-          <div className="flex-grow flex flex-col gap-1">
+      <div className="mb-12 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex items-center gap-4 flex-grow w-full">
+          <h2 className="text-2xl md:text-4xl font-black text-gray-900 whitespace-nowrap">More Featured</h2>
+          <div className="flex-grow hidden sm:flex flex-col gap-1">
             <div className="h-px w-full bg-gray-200"></div>
             <div className="h-px w-full bg-gray-200"></div>
           </div>
         </div>
-        <Link to="/category/all" className="px-8 py-3 border border-gray-100 rounded-full text-[#3aed43] text-base font-bold hover:bg-[#3aed43]/5 hover:border-[#3aed43]/20 transition-all shadow-sm whitespace-nowrap">
+        <Link to="/category/all" className="w-full md:w-auto text-center px-8 py-3 border border-gray-100 rounded-full text-[#3aed43] text-base font-bold hover:bg-[#3aed43]/5 hover:border-[#3aed43]/20 transition-all shadow-sm whitespace-nowrap">
           See All Latest Post
         </Link>
       </div>

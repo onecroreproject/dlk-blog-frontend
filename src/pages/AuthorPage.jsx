@@ -36,28 +36,28 @@ const AuthorPage = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Page Header */}
-      <div className="bg-white border-b py-10 px-6">
-        <div className="w-full flex items-center justify-between">
-          <h1 className="text-4xl font-black text-gray-900">Author: {authorName}</h1>
+      <div className="bg-white border-b py-8 md:py-10 px-4 md:px-6">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
+          <h1 className="text-2xl md:text-4xl font-black text-gray-900">Author: {authorName}</h1>
           <div className="text-sm font-bold text-gray-400 flex items-center gap-2">
-            <Link to="/" className="flex items-center gap-1 hover:text-red-600"><FaHome size={10} /> DLK Technologies</Link>
+            <Link to="/" className="flex items-center gap-1 hover:text-red-600 transition-colors"><FaHome size={10} /> DLK Technologies</Link>
             <FaChevronRight size={8} />
-            <span className="text-red-600">Articles by: {authorName}</span>
+            <span className="text-red-600">Articles</span>
           </div>
         </div>
       </div>
 
       <div className="w-full px-4 lg:px-8 py-12">
         {/* Author Bio Banner */}
-        <div className="bg-white rounded-[10px] p-12 border border-gray-100 shadow-sm mb-12 flex flex-col md:flex-row items-center gap-10">
-          <div className="flex-grow text-center md:text-left">
-            <h2 className="text-5xl font-black text-gray-900 mb-6">{authorName}</h2>
-            <p className="text-gray-400 font-medium leading-relaxed max-w-2xl">
+        <div className="bg-white rounded-2xl p-6 md:p-12 border border-gray-100 shadow-sm mb-12 flex flex-col md:flex-row items-center gap-8 md:gap-10">
+          <div className="flex-grow text-center md:text-left order-2 md:order-1">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6">{authorName}</h2>
+            <p className="text-gray-400 text-sm md:text-base font-medium leading-relaxed max-w-2xl">
               I have a personal philosophy in life: If somebody else can do something that I'm doing, they should do it. And what I want to do is find things that would represent a unique contribution to the world.
             </p>
           </div>
-          <div className="w-48 h-48 rounded-full border-8 border-gray-50 overflow-hidden shadow-2xl flex-shrink-0">
-            <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300 font-black text-sm">Author Photo</div>
+          <div className="w-32 h-32 md:w-48 md:h-48 rounded-full border-4 md:border-8 border-gray-50 overflow-hidden shadow-2xl flex-shrink-0 order-1 md:order-2">
+            <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300 font-black text-xs md:text-sm">Author Photo</div>
           </div>
         </div>
 

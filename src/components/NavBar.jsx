@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SlArrowDown } from "react-icons/sl";
-import { FiSearch, FiX, FiLock, FiAlertCircle } from "react-icons/fi";
+import { FiSearch, FiX, FiLock, FiAlertCircle, FiMenu } from "react-icons/fi";
 import axios from 'axios';
 import Logo from "../assets/dlk_logo.png";
 import { useEffect } from 'react';
@@ -21,6 +21,7 @@ function NavBar() {
   const [isNewsOpen, setIsNewsOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -78,24 +79,24 @@ function NavBar() {
         className={`fixed top-0 left-0 w-full bg-white shadow-2xl z-[150] transition-all duration-500 ease-in-out overflow-hidden ${isSearchOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
           }`}
       >
-        <div className="w-full px-4 lg:px-8 py-8">
-          <div className="flex items-center gap-4 mb-6">
+        <div className="w-full px-4 lg:px-8 py-4 sm:py-8">
+          <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-6">
             <div className="flex-grow relative">
               <input
                 type="text"
-                placeholder="Search for articles, news, and more..."
-                className="w-full bg-gray-50 border-2 border-gray-100 rounded-full py-4 px-8 outline-none focus:border-green-400 transition-colors text-xl font-black"
+                placeholder="Search for articles..."
+                className="w-full bg-gray-50 border-2 border-gray-100 rounded-full py-2.5 sm:py-4 px-5 sm:px-8 outline-none focus:border-green-400 transition-colors text-base sm:text-xl font-black"
                 autoFocus={isSearchOpen}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <FiSearch className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 text-2xl" />
+              <FiSearch className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 text-gray-400 text-lg sm:text-2xl" />
             </div>
             <button
               onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
-              className="w-14 h-14 flex items-center justify-center bg-gray-100 text-gray-500 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-sm"
+              className="w-10 h-10 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-gray-100 text-gray-500 rounded-full hover:bg-red-500 hover:text-white transition-all shadow-sm"
             >
-              <FiX className="text-3xl" />
+              <FiX className="text-xl sm:text-3xl" />
             </button>
           </div>
 
@@ -186,19 +187,28 @@ function NavBar() {
         </div>
       )}
 
-      <div className="bg-gray-100 border-b border-gray-200">
-        <div className="w-full px-4 lg:px-8 h-24 flex items-center justify-between">
+      <div className="bg-white border-b border-gray-100">
+        <div className="w-full px-4 lg:px-8 h-16 md:h-20 lg:h-24 flex items-center justify-between">
+          {/* Mobile Menu Button */}
+          <button 
+            className="lg:hidden text-gray-800 p-2 hover:bg-gray-200 rounded-full transition-colors"
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <FiMenu size={28} />
+          </button>
 
           {/* Left Section (Logo + Menu) */}
-          <div className="flex items-center gap-10">
-            {/* Logo */}
-            <Link to="/">
-              <img
-                src={Logo}
-                alt="logo"
-                className="w-[140px] h-[70px] object-contain cursor-pointer"
-              />
-            </Link>
+          <div className="flex items-center lg:gap-10">
+            {/* Logo - Centered on Mobile */}
+            <div className="lg:static absolute left-1/2 -translate-x-1/2 lg:translate-x-0">
+              <Link to="/">
+                <img
+                  src={Logo}
+                  alt="logo"
+                  className="w-[120px] sm:w-[150px] lg:w-[200px] h-[55px] sm:h-[65px] lg:h-[85px] object-contain cursor-pointer"
+                />
+              </Link>
+            </div>
 
             {/* Menu */}
             <ul className="flex items-center text-[19px] font-bold text-gray-800 hidden lg:flex">
@@ -206,9 +216,7 @@ function NavBar() {
                 <Link to="/">Home</Link> <SlArrowDown size={10} className="text-gray-400" />
               </li>
 
-              <li className="cursor-pointer hover:text-green-600 transition-colors px-6 border-r border-gray-300 flex items-center h-full">
-                <Link to="/about">About</Link>
-              </li>
+             
 
               {/* News Dropdown */}
               <li
@@ -355,13 +363,104 @@ function NavBar() {
               Post Blog
             </button>
 
-            <Link to="/contact">
+            <a href="https://dlksoftwaresolutions.co.in/contact" target="_blank" rel="noopener noreferrer">
               <button className="px-7 h-11 bg-green-500 text-white font-bold text-[17px] rounded-full hover:bg-green-600 transition shadow-sm whitespace-nowrap hidden sm:block">
                 Subscribe Now
               </button>
-            </Link>
+            </a>
           </div>
 
+        </div>
+    </div>
+
+      {/* Mobile Menu Drawer */}
+      <div className={`fixed inset-0 z-[200] lg:hidden transition-all duration-300 ${isMobileMenuOpen ? 'visible' : 'invisible'}`}>
+        {/* Backdrop */}
+        <div 
+          className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+        
+        {/* Drawer Content */}
+        <div className={`absolute top-0 left-0 w-[80%] max-w-[320px] h-full bg-white shadow-2xl transition-transform duration-300 ease-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="flex flex-col h-full">
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+              <img src={Logo} alt="logo" className="h-10 w-auto" />
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full text-gray-500"
+              >
+                <FiX size={24} />
+              </button>
+            </div>
+
+            <div className="flex-grow overflow-y-auto p-6">
+              <ul className="flex flex-col gap-6 text-xl font-bold text-gray-800">
+                <li onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link to="/" className="hover:text-green-600 transition-colors">Home</Link>
+                </li>
+                
+                
+                {/* News Section for Mobile */}
+                <li>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-gray-400 text-xs uppercase tracking-widest font-black">Latest News</span>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    {newsBlogs.slice(0, 3).map(blog => (
+                      <Link 
+                        key={blog._id} 
+                        to={`/blog/${blog.slug || blog._id}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-[17px] leading-tight hover:text-green-600 transition-colors"
+                      >
+                        {blog.title}
+                      </Link>
+                    ))}
+                  </div>
+                </li>
+
+                {/* Categories Section for Mobile */}
+                <li>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-gray-400 text-xs uppercase tracking-widest font-black">Categories</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {categories
+                      .filter(cat => getBlogCount(cat.name) > 0 && cat.name.toLowerCase() !== 'news')
+                      .map(cat => (
+                        <Link
+                          key={cat._id}
+                          to={`/category/${cat.name.toLowerCase().replace(/ /g, '-')}`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="px-4 py-2 bg-gray-50 rounded-full text-sm font-bold hover:bg-green-600 hover:text-white transition-all"
+                        >
+                          {cat.name}
+                        </Link>
+                      ))}
+                  </div>
+                </li>
+
+                <li onClick={() => setIsMobileMenuOpen(false)}>
+                  <a href="https://dlksoftwaresolutions.co.in/contact" target="_blank" rel="noopener noreferrer" className="hover:text-green-600 transition-colors">Contact</a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 border-t border-gray-100 flex flex-col gap-4">
+              <button
+                onClick={() => { setIsMobileMenuOpen(false); setIsOtpModalOpen(true); }}
+                className="w-full h-14 bg-black text-white font-bold text-lg rounded-2xl hover:bg-gray-800 transition shadow-xl"
+              >
+                Post Blog
+              </button>
+              <a href="https://dlksoftwaresolutions.co.in/contact" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+                <button className="w-full h-14 bg-green-500 text-white font-bold text-lg rounded-2xl hover:bg-green-600 transition shadow-xl">
+                  Subscribe Now
+                </button>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

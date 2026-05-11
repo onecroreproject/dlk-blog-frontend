@@ -61,9 +61,9 @@ const TopAuthorsSection = () => {
 
         {/* Left Column: Top Tech Authors */}
         <div className="lg:col-span-2">
-          <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-3xl font-black text-gray-900 whitespace-nowrap">Top Tech Author</h2>
-            <div className="flex-grow flex flex-col gap-1">
+          <div className="flex items-center gap-4 mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 whitespace-nowrap">Top Tech Author</h2>
+            <div className="flex-grow hidden sm:flex flex-col gap-1">
               <div className="h-px w-full bg-gray-200"></div>
               <div className="h-px w-full bg-gray-200"></div>
             </div>

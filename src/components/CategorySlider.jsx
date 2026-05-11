@@ -38,18 +38,18 @@ const CategorySlider = () => {
   const displayCategories = [...activeCategories, ...activeCategories, ...activeCategories];
 
   return (
-    <div className="w-full p-10 bg-gray-50/50 overflow-hidden">
+    <div className="w-full px-4 py-8 md:p-10 bg-gray-50/50 overflow-hidden">
      
 
-      <div className="flex animate-marquee hover:pause-marquee space-x-6 px-6">
+      <div className="flex animate-marquee hover:pause-marquee space-x-4 md:space-x-6 px-4 md:px-6">
         {displayCategories.map((cat, index) => (
           <Link
             to={`/category/${cat.name.toLowerCase().replace(/\s+/g, '-')}`}
             key={`${cat._id}-${index}`}
-            className="flex-shrink-0 w-48  h-64 bg-white border border-gray-100 rounded-[10px] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col items-center justify-center  cursor-pointer group"
+            className="flex-shrink-0 w-40 md:w-48 h-56 md:h-64 bg-white border border-gray-100 rounded-[10px] shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col items-center justify-center cursor-pointer group"
           >
             {/* Circular Symbol / Letter */}
-            <div className="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center  overflow-hidden border-2 border-transparent group-hover:border-red-600 transition-all duration-500">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-red-50 flex items-center justify-center overflow-hidden border-2 border-transparent group-hover:border-red-600 transition-all duration-500">
               {cat.image ? (
                 <img
                   src={`${import.meta.env.VITE_BASE_URL}/${cat.image}`}
@@ -57,14 +57,14 @@ const CategorySlider = () => {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               ) : (
-                <span className="text-red-600 font-black text-3xl group-hover:text-red-600 transition-colors">
+                <span className="text-red-600 font-black text-2xl md:text-3xl group-hover:text-red-600 transition-colors">
                   {cat.name.charAt(0)}
                 </span>
               )}
             </div>
 
             {/* Category Name */}
-            <h3 className="text-gray-900 font-black text-[17px] text-center group-hover:text-red-600 transition-colors mb-2">
+            <h3 className="text-gray-900 font-black text-base md:text-[17px] text-center group-hover:text-red-600 transition-colors mb-2">
               {cat.name}
             </h3>
 

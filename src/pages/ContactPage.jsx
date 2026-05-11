@@ -40,9 +40,9 @@ const ContactPage = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Page Header */}
-      <div className="bg-white border-b py-10 px-6">
+      <div className="bg-white border-b py-8 md:py-10 px-4 md:px-6">
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
-          <h1 className="text-4xl font-black text-gray-900">Contact Us</h1>
+          <h1 className="text-2xl md:text-4xl font-black text-gray-900">Contact Us</h1>
           <div className="text-sm font-bold text-gray-400 flex items-center gap-2">
             <Link to="/" className="flex items-center gap-1 hover:text-red-600 transition-colors"><FaHome size={10} /> DLK Technologies</Link>
             <FaChevronRight size={8} />
@@ -70,8 +70,8 @@ const ContactPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
           {/* Left Column: Office Address Details */}
-          <div className="bg-white rounded-[10px] p-12 border border-gray-100 shadow-sm">
-            <h2 className="text-3xl font-black text-gray-900 mb-6">Germany Office Address</h2>
+          <div className="bg-white rounded-[10px] p-6 md:p-12 border border-gray-100 shadow-sm">
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-6">Germany Office Address</h2>
             <p className="text-gray-400 font-bold leading-relaxed mb-12">
               Completely recaptualize 24/7 communities via standards compliant metrics whereas web-enabled content.
             </p>
@@ -117,8 +117,8 @@ const ContactPage = () => {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="bg-white rounded-[10px] p-12 border border-gray-100 shadow-sm relative overflow-hidden">
-            <h2 className="text-3xl font-black text-gray-900 mb-2">Leave a Message</h2>
+          <div className="bg-white rounded-[10px] p-6 md:p-12 border border-gray-100 shadow-sm relative overflow-hidden">
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-2">Leave a Message</h2>
             <p className="text-gray-400 font-bold mb-10">We're Ready To Help You</p>
 
             {status.message && (

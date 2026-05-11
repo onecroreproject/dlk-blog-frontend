@@ -41,9 +41,9 @@ const BreakingNewsSection = () => {
   return (
     <section className="w-full px-4 lg:px-8 py-12">
       {/* Section Header */}
-      <div className="flex items-center gap-4 mb-10">
-        <h2 className="text-3xl font-black text-gray-900 whitespace-nowrap">Breaking News</h2>
-        <div className="flex-grow flex flex-col gap-1">
+      <div className="flex items-center gap-4 mb-6 md:mb-10">
+        <h2 className="text-2xl md:text-3xl font-black text-gray-900 whitespace-nowrap">Breaking News</h2>
+        <div className="flex-grow hidden sm:flex flex-col gap-1">
           <div className="h-px w-full bg-gray-200"></div>
           <div className="h-px w-full bg-gray-200"></div>
         </div>
@@ -131,14 +131,14 @@ const BreakingNewsSection = () => {
                   <div className="absolute inset-0 bg-gray-900 flex items-center justify-center text-white font-black text-5xl">{post.title.charAt(0)}</div>
                 )}
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-10 flex flex-col justify-end">
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent p-6 md:p-10 flex flex-col justify-end">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white text-sm font-black border-2 border-white/20 shadow-lg">
                       {post.author?.charAt(0)}
                     </div>
                     <span className="text-white text-sm font-black ">by {post.author} • {new Date(post.createdAt).toLocaleDateString()}</span>
                   </div>
-                  <h3 className="text-white text-4xl font-black leading-tight mb-6 group-hover:text-red-500 transition-colors line-clamp-3">
+                  <h3 className="text-white text-2xl md:text-4xl font-black leading-tight mb-4 md:mb-6 group-hover:text-red-500 transition-colors line-clamp-3">
                     {post.title}
                   </h3>
                   <div className="flex items-center gap-4 text-xs font-black  text-white/70">

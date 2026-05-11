@@ -31,10 +31,10 @@ const FeaturedSection = () => {
 
     if (loading) {
         return (
-            <div className="px-6 py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 rounded-[10px] overflow-hidden shadow-2xl animate-pulse bg-gray-100 h-[800px]">
-                    <div className="lg:col-span-2 bg-gray-200"></div>
-                    <div className="bg-[#121212] p-8 flex flex-col gap-8">
+            <div className="px-4 md:px-6 py-8 md:py-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 rounded-3xl lg:rounded-[10px] overflow-hidden shadow-2xl animate-pulse bg-gray-100 h-auto lg:h-[800px]">
+                    <div className="lg:col-span-2 bg-gray-200 h-[400px] lg:h-full"></div>
+                    <div className="bg-[#121212] p-6 md:p-8 flex flex-col gap-8">
                         <div className="h-48 bg-gray-800 rounded-xl"></div>
                         <div className="flex flex-col gap-6">
                             {[1, 2, 3].map(i => (
@@ -60,12 +60,12 @@ const FeaturedSection = () => {
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     return (
-        <div className="px-6 py-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 rounded-[10px] overflow-hidden shadow-2xl border border-gray-100">
+        <div className="px-4 md:px-6 py-8 md:py-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 rounded-3xl lg:rounded-[10px] overflow-hidden shadow-2xl border border-gray-100">
 
                 {/* Left Section: Main Featured Post */}
                 {mainPost ? (
-                    <Link to={`/blog/${mainPost.slug || mainPost._id}`} className="lg:col-span-2 relative h-[600px] group cursor-pointer overflow-hidden block">
+                    <Link to={`/blog/${mainPost.slug || mainPost._id}`} className="lg:col-span-2 relative h-[400px] md:h-[500px] lg:h-[600px] group cursor-pointer overflow-hidden block">
                         {/* Main Image */}
                         {mainPost.titleImage ? (
                             <img
@@ -78,8 +78,8 @@ const FeaturedSection = () => {
                         )}
 
                         {/* Overlay Content */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent">
-                            <div className="absolute bottom-0 left-0 p-10 w-full">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent">
+                            <div className="absolute bottom-0 left-0 p-6 md:p-10 w-full">
                                 <div className="flex items-center gap-4 mb-6">
                                     <div className="w-12 h-12 rounded-full bg-red-600 border-2 border-white flex items-center justify-center text-white font-black text-base shadow-xl">
                                         {mainPost.authorAvatar ? (
@@ -94,7 +94,7 @@ const FeaturedSection = () => {
                                     </div>
                                 </div>
 
-                                <h1 className="text-white text-4xl md:text-6xl font-black mb-6 leading-tight group-hover:text-red-500 transition-colors">
+                                <h1 className="text-white text-2xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 leading-tight group-hover:text-red-500 transition-colors">
                                     {mainPost.title}
                                 </h1>
 
@@ -109,11 +109,11 @@ const FeaturedSection = () => {
                         </div>
                     </Link>
                 ) : (
-                    <div className="lg:col-span-2 h-[600px] bg-gray-200 flex items-center justify-center text-gray-400 font-bold">No Featured Post</div>
+                    <div className="lg:col-span-2 h-[400px] lg:h-[600px] bg-gray-200 flex items-center justify-center text-gray-400 font-bold">No Featured Post</div>
                 )}
 
                 {/* Right Section: Sidebar Posts */}
-                <div className="bg-[#0a0a0a] p-8 flex flex-col gap-8">
+                <div className="bg-[#0a0a0a] p-6 md:p-8 flex flex-col gap-8">
 
                     {/* Top Sidebar Post */}
                     {sidebarTop ? (
@@ -127,7 +127,7 @@ const FeaturedSection = () => {
                                 <h3 className="text-white font-black text-base leading-snug group-hover:text-red-500 transition-colors line-clamp-2">
                                     {sidebarTop.title}
                                 </h3>
-                                <div className="flex items-center gap-2 text-[11px] text-gray-400 mt-3 font-black ">
+                                <div className="flex items-center gap-2 text-[10px] md:text-[11px] text-gray-400 mt-3 font-black ">
                                     <span className="text-red-600">{sidebarTop.category}</span>
                                     <span>•</span>
                                     <span>{new Date(sidebarTop.createdAt).toLocaleDateString()}</span>

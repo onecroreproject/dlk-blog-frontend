@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBell, FaCalendarAlt } from "react-icons/fa";
+import { FaBell, FaCalendarAlt, FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube } from "react-icons/fa";
 import axios from 'axios';
 import logo from '../assets/dlk_logo.png';
 
@@ -74,8 +74,8 @@ const Footer = () => {
 
       {/* Thank You Popup */}
       {showPopup && (
-        <div className="fixed top-10 left-1/2 -translate-x-1/2 z-[1000] animate-bounce-in">
-          <div className="bg-white px-10 py-5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] border-b-4 border-red-600 flex items-center gap-4">
+        <div className="fixed top-10 left-1/2 -translate-x-1/2 z-[1000] animate-bounce-in w-[90%] max-w-md">
+          <div className="bg-white px-6 md:px-10 py-5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] border-b-4 border-red-600 flex items-center gap-4">
             <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white">
               <FaBell />
             </div>
@@ -90,28 +90,28 @@ const Footer = () => {
       {/* Newsletter Section */}
       <div className="bg-[#111111] py-16 px-6 border-b border-white/5">
         <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-10">
-          <div className="flex items-center gap-6">
-            <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center text-white text-4xl shadow-[0_0_20px_rgba(220,38,38,0.4)] animate-pulse">
+          <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+            <div className="w-16 h-16 md:w-20 md:h-20 bg-red-600 rounded-full flex items-center justify-center text-white text-3xl md:text-4xl shadow-[0_0_20px_rgba(220,38,38,0.4)] animate-pulse">
               <FaBell />
             </div>
             <div>
-              <h2 className="text-4xl font-black text-white">Sign up to Our Newsletters.</h2>
-              <p className="text-gray-400 font-medium mt-2">Subscribe to our Newsletter & Event Right Now to be Updated</p>
+              <h2 className="text-2xl md:text-4xl font-black text-white">Sign up to Our Newsletters.</h2>
+              <p className="text-gray-400 font-medium mt-2 text-sm md:text-base">Subscribe to our Newsletter & Event Right Now to be Updated</p>
             </div>
           </div>
 
           <div className="w-full lg:max-w-2xl">
-            <div className="bg-white rounded-full flex items-center p-1 pl-8 shadow-2xl overflow-hidden">
+            <div className="bg-white rounded-3xl md:rounded-full flex flex-col md:flex-row items-center p-2 md:p-1 md:pl-8 shadow-2xl overflow-hidden gap-4 md:gap-0">
               <input
                 type="email"
                 placeholder="Enter Your Email"
                 value={subscribeEmail}
                 onChange={(e) => setSubscribeEmail(e.target.value)}
-                className="flex-grow bg-transparent outline-none text-gray-800 placeholder-gray-400 text-lg font-medium"
+                className="w-full md:flex-grow bg-transparent outline-none text-gray-800 placeholder-gray-400 text-base md:text-lg font-medium px-6 md:px-0 py-3 md:py-0 text-center md:text-left"
               />
               <button
                 onClick={handleSubscribe}
-                className="bg-[#e32e2e] text-white px-10 py-4 rounded-full font-black text-base  hover:bg-red-700 transition-all shadow-lg active:scale-95"
+                className="w-full md:w-auto bg-[#e32e2e] text-white px-10 py-4 rounded-2xl md:rounded-full font-black text-base hover:bg-red-700 transition-all shadow-lg active:scale-95"
               >
                 Subscribe Now
               </button>
@@ -121,12 +121,12 @@ const Footer = () => {
       </div>
 
       {/* Main Footer Section */}
-      <div className="bg-[#111111] text-white py-20 px-6">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="bg-[#111111] text-white py-12 md:py-20 px-6">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
 
           {/* Column 1: Top Categories */}
           <div>
-            <h3 className="text-2xl font-black mb-10">Top Categories</h3>
+            <h3 className="text-xl md:text-2xl font-black mb-6 md:mb-10 uppercase tracking-tight">Top Categories</h3>
             <div className="flex flex-col gap-4">
               {topCategories.map((cat, i) => (
                 <Link to={`/category/${cat.name.toLowerCase().replace(/ /g, '-')}`} key={i} className="flex items-center justify-between bg-white rounded-full p-1 pl-6 group cursor-pointer hover:bg-red-600 transition-all duration-300">
@@ -142,7 +142,7 @@ const Footer = () => {
 
           {/* Column 2: Popular Tags */}
           <div>
-            <h3 className="text-2xl font-black mb-10">Popular Tags</h3>
+            <h3 className="text-xl md:text-2xl font-black mb-6 md:mb-10 uppercase tracking-tight">Popular Tags</h3>
             <div className="flex flex-wrap gap-2">
               {popularTags.map((tag, i) => (
                 <Link to={`/tag/${tag}`} key={i} className="bg-white text-black px-4 py-2 rounded-full text-[11px] font-black tracking-wider cursor-pointer hover:bg-red-600 hover:text-white transition-all">
@@ -155,7 +155,7 @@ const Footer = () => {
 
           {/* Column 3: Recent Post */}
           <div>
-            <h3 className="text-2xl font-black mb-10">Recent Post</h3>
+            <h3 className="text-xl md:text-2xl font-black mb-6 md:mb-10 uppercase tracking-tight">Recent Post</h3>
             <div className="flex flex-col gap-8">
               {recentPosts.map((post) => (
                 <Link to={`/blog/${post.slug || post._id}`} key={post._id} className="flex items-center gap-4 group cursor-pointer">
@@ -181,7 +181,7 @@ const Footer = () => {
 
           {/* Column 4: Instagram Feed */}
           <div>
-            <h3 className="text-2xl font-black mb-10">Instagram Feed</h3>
+            <h3 className="text-xl md:text-2xl font-black mb-6 md:mb-10 uppercase tracking-tight">Instagram Feed</h3>
             <div className="grid grid-cols-3 gap-2">
               {instaImages.map((blog) => (
                 <Link to={`/blog/${blog.slug || blog._id}`} key={blog._id} className="aspect-square bg-gray-800 rounded-lg overflow-hidden cursor-pointer group relative">
@@ -200,15 +200,29 @@ const Footer = () => {
       </div>
 
       {/* Bottom Copyright Bar */}
-      <div className="bg-[#000000] py-10 border-t border-white/5 text-white px-6">
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex gap-8 text-[15px] font-black">
+      <div className="bg-[#000000] py-8 md:py-10 border-t border-white/5 text-white px-6">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex flex-wrap justify-center md:justify-start gap-6 md:gap-8 text-sm md:text-[15px] font-black">
             <a href="#" className="hover:text-red-600 transition-colors">Terms & Conditions</a>
             <a href="#" className="hover:text-red-600 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-red-600 transition-colors">Contact</a>
+            <a href="https://dlksoftwaresolutions.co.in/contact" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition-colors">Contact</a>
           </div>
 
-          <div className="flex flex-col items-center md:items-end gap-2">
+          <div className="flex flex-col items-center md:items-end gap-4">
+            <div className="flex items-center gap-4 mb-2">
+              <a href="https://www.facebook.com/people/DLK-Software-Solutions/61569333069634/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-600 transition-all">
+                <FaFacebookF className="text-white text-lg" />
+              </a>
+              <a href="https://www.instagram.com/dlk_softwaresolutions/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-600 transition-all">
+                <FaInstagram className="text-white text-lg" />
+              </a>
+              <a href="https://www.linkedin.com/company/dlk-software-solutions/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-600 transition-all">
+                <FaLinkedinIn className="text-white text-lg" />
+              </a>
+              <a href="https://www.youtube.com/@StudentsLearningplatform2026" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-600 transition-all">
+                <FaYoutube className="text-white text-lg" />
+              </a>
+            </div>
             <Link to="/">
               <img src={logo} alt="DLK Technologies" className="h-8 w-auto mb-2 cursor-pointer" />
             </Link>

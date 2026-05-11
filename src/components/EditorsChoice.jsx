@@ -53,13 +53,13 @@ const EditorsChoice = () => {
 
         {/* Header Section */}
         <div className="flex flex-col items-center mb-12">
-          <div className="flex items-center gap-8 w-full justify-center mb-8">
-            <div className="flex-grow flex flex-col gap-1">
+          <div className="flex items-center gap-4 md:gap-8 w-full justify-center mb-6 md:mb-8">
+            <div className="flex-grow hidden md:flex flex-col gap-1">
               <div className="h-px w-full bg-white/20"></div>
               <div className="h-px w-full bg-white/20"></div>
             </div>
-            <h2 className="text-white text-4xl font-black text-center whitespace-nowrap">Editor's Choice</h2>
-            <div className="flex-grow flex flex-col gap-1">
+            <h2 className="text-white text-3xl md:text-4xl font-black text-center whitespace-nowrap">Editor's Choice</h2>
+            <div className="flex-grow hidden md:flex flex-col gap-1">
               <div className="h-px w-full bg-white/20"></div>
               <div className="h-px w-full bg-white/20"></div>
             </div>
@@ -84,7 +84,7 @@ const EditorsChoice = () => {
 
             {/* Main Featured Post */}
             {mainPost && (
-              <Link to={mainPost.slug ? `/blog/${mainPost.slug}` : (mainPost._id ? `/blog/${mainPost._id}` : '#')} className="relative h-[600px] rounded-2xl overflow-hidden group cursor-pointer shadow-2xl block">
+              <Link to={mainPost.slug ? `/blog/${mainPost.slug}` : (mainPost._id ? `/blog/${mainPost._id}` : '#')} className="relative h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden group cursor-pointer shadow-2xl block">
                 {mainPost.titleImage ? (
                   <img
                     src={`${import.meta.env.VITE_BASE_URL}/${mainPost.titleImage}`}
@@ -98,8 +98,8 @@ const EditorsChoice = () => {
                 )}
 
                 {/* Play Button Overlay */}
-                <div className="absolute top-8 left-8 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform z-10">
-                  <FaPlay className="text-green-700 ml-1 text-2xl" />
+                <div className="absolute top-4 left-4 md:top-8 md:left-8 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform z-10">
+                  <FaPlay className="text-green-700 ml-1 text-xl md:text-2xl" />
                 </div>
 
                 {/* Bottom Content Overlay */}
@@ -112,11 +112,11 @@ const EditorsChoice = () => {
                       by {mainPost.author} • {new Date(mainPost.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </span>
                   </div>
-                  <h3 className="text-white text-4xl font-bold leading-tight mb-4 group-hover:text-green-400 transition-colors">
+                  <h3 className="text-white text-2xl md:text-4xl font-bold leading-tight mb-4 group-hover:text-green-400 transition-colors">
                     {mainPost.title}
                   </h3>
-                  <div className="flex items-center gap-3 text-sm font-bold text-white/70">
-                    <span className="text-green-400">{mainPost.category}</span>
+                  <div className="flex items-center gap-3 text-xs md:text-sm font-bold text-white/70">
+                    <span className="text-green-400 uppercase">{mainPost.category}</span>
                     <span>•</span>
                     <span>1 min read</span>
                   </div>

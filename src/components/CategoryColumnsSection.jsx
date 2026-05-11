@@ -41,25 +41,38 @@ const CategoryColumnsSection = () => {
   }, []);
 
   useEffect(() => {
-    if (allCategoryData.length <= 3 || isPaused) {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      const visibleCount = w < 768 ? 1 : (w < 1024 ? 2 : 3);
       if (timerRef.current) clearInterval(timerRef.current);
-      return;
-    }
-
-    timerRef.current = setInterval(() => {
-      setCurrentSlide(prev => {
-        const next = prev + 3;
-        return next >= allCategoryData.length ? 0 : next;
-      });
-    }, 5000);
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      
+      timerRef.current = setInterval(() => {
+        setCurrentSlide(prev => {
+          const next = prev + visibleCount;
+          return next >= allCategoryData.length ? 0 : next;
+        });
+      }, 5000);
     };
+
+    if (allCategoryData.length > 0 && !isPaused) {
+      handleResize();
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        if (timerRef.current) clearInterval(timerRef.current);
+      };
+    }
   }, [allCategoryData, isPaused]);
 
-  // Show 3 categories at a time
-  const visibleCategories = allCategoryData.slice(currentSlide, currentSlide + 3);
+  // Determine how many to show based on width
+  const getVisibleCount = () => {
+    const w = window.innerWidth;
+    if (w < 768) return 1;
+    if (w < 1024) return 2;
+    return 3;
+  };
+
+  const visibleCategories = allCategoryData.slice(currentSlide, currentSlide + getVisibleCount());
 
   const socialLinks = [
     { name: 'Facebook', followers: '14k followers', color: 'bg-[#3b5998]', icon: <FaFacebookF /> },
@@ -84,7 +97,7 @@ const CategoryColumnsSection = () => {
             visibleCategories.map((section, idx) => (
               <div key={idx} className="flex flex-col gap-6 animate-fade-in">
                 <div className="flex items-center gap-4 mb-2">
-                  <h2 className="text-3xl font-black text-gray-900">{section.title}</h2>
+                  <h2 className="text-2xl md:text-3xl font-black text-gray-900">{section.title}</h2>
                   <div className="flex-grow h-[1px] bg-gray-200"></div>
                 </div>
 

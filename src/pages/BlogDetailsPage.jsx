@@ -111,27 +111,24 @@ const BlogDetailsPage = () => {
 
   return (
     <div className="bg-[#f8f9fa] min-h-screen">
-      {/* 1. Header Section */}
-      <div className="bg-white py-12 border-b border-gray-100">
-        <div className="w-full px-4 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">{blog.title}</h1>
+      <div className="bg-white border-b py-8 md:py-10 px-4 md:px-6">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
+          <h1 className="text-2xl md:text-4xl font-black text-gray-900">{blog.title}</h1>
           <div className="flex items-center gap-2 text-[11px] font-bold text-gray-400 tracking-wider">
             <Link to="/" className="hover:text-red-600 transition-colors">ebuzz</Link>
             <span className="text-gray-300">&gt;</span>
             <span className="hover:text-red-600 cursor-pointer">{blog.category}</span>
             <span className="text-gray-300">&gt;</span>
-            <span className="text-red-600">{blog.title}</span>
+            <span className="text-red-600">Details</span>
           </div>
         </div>
       </div>
 
-      <div className="w-full px-4 lg:px-8 py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
+      <div className="w-full px-4 md:px-6 py-8 md:py-12">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
 
-          {/* LEFT CONTENT AREA */}
           <div className="lg:w-[68%]">
-            {/* Featured Image */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-sm mb-10">
+            <div className="bg-white rounded-xl overflow-hidden shadow-sm mb-8">
               <img
                 src={`${import.meta.env.VITE_BASE_URL}/${blog.titleImage}`}
                 alt=""
@@ -139,8 +136,7 @@ const BlogDetailsPage = () => {
               />
             </div>
 
-            {/* Post Meta */}
-            <div className="flex flex-wrap items-center gap-6 mb-8 text-[11px] font-bold text-gray-400 ">
+            <div className="flex flex-wrap items-center gap-6 mb-8 text-[11px] font-bold text-gray-400">
               <div className="flex items-center gap-2">
                 <FaCalendarAlt className="text-red-600" />
                 <span>{new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
@@ -159,7 +155,7 @@ const BlogDetailsPage = () => {
               </div>
             </div>
 
-            <h2 className="text-4xl font-black text-gray-900 mb-8 leading-tight">{blog.title}</h2>
+            <h2 className="text-2xl md:text-4xl font-black text-gray-900 mb-8 leading-tight">{blog.title}</h2>
 
             {/* Article Content */}
             <div
@@ -168,17 +164,17 @@ const BlogDetailsPage = () => {
             />
 
             {/* Blockquote Style from Reference */}
-            <div className="my-12 py-12 px-10 bg-white border border-gray-100 rounded-xl text-center shadow-sm relative overflow-hidden">
+            <div className="my-8 md:my-12 py-8 md:py-12 px-6 md:px-10 bg-white border border-gray-100 rounded-xl text-center shadow-sm relative overflow-hidden">
               <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-red-200">
-                  <FaQuoteRight size={24} />
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-red-200">
+                  <FaQuoteRight className="text-xl md:text-2xl" />
                 </div>
               </div>
-              <p className="text-3xl font-black text-gray-900 leading-snug mb-4 max-w-2xl mx-auto">
+              <p className="text-xl md:text-3xl font-black text-gray-900 leading-snug mb-4 max-w-2xl mx-auto">
                 Holistically build technologies expanded array relationships productize professional tailers rather mesh stand
               </p>
-              <span className="text-red-600 font-black text-sm tracking-[0.2em]">{blog.author}</span>
-              <div className="text-xs text-gray-400 font-bold mt-1">Top Author</div>
+              <span className="text-red-600 font-black text-xs md:text-sm tracking-[0.2em]">{blog.author}</span>
+              <div className="text-[10px] md:text-xs text-gray-400 font-bold mt-1">Top Author</div>
             </div>
 
             {/* Grid Images */}
@@ -248,27 +244,27 @@ const BlogDetailsPage = () => {
             </div>
 
             {/* Author Bio Card */}
-            <div className="bg-white p-10 rounded-xl border border-gray-100 shadow-sm flex flex-col md:flex-row gap-8 items-center mb-12">
-              <div className="w-32 h-32 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0 shadow-md">
+            <div className="bg-white p-6 md:p-10 rounded-xl border border-gray-100 shadow-sm flex flex-col md:flex-row gap-8 items-center mb-12">
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0 shadow-md">
                 {blog.authorAvatar ? (
                   <img src={`${import.meta.env.VITE_BASE_URL}/${blog.authorAvatar}`} alt={blog.author} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-red-50 text-red-600 font-black text-3xl">{blog.author.charAt(0)}</div>
+                  <div className="w-full h-full flex items-center justify-center bg-red-50 text-red-600 font-black text-2xl md:text-3xl">{blog.author.charAt(0)}</div>
                 )}
               </div>
               <div className="text-center md:text-left">
-                <h3 className="text-3xl font-black text-gray-900 mb-1">{blog.author}</h3>
-                <div className="text-red-600 font-black text-xs  mb-4">Author</div>
-                <p className="text-gray-400 text-base font-medium leading-relaxed">
+                <h3 className="text-2xl md:text-3xl font-black text-gray-900 mb-1">{blog.author}</h3>
+                <div className="text-red-600 font-black text-[10px] md:text-xs mb-4">Author</div>
+                <p className="text-gray-400 text-sm md:text-base font-medium leading-relaxed">
                   I have a personal philosophy in life: If somebody else can do something that I'm doing, they should do it. And what I want to do is find things that would represent a unique contribution to the world.
                 </p>
               </div>
             </div>
 
             {/* Comment Form */}
-            <div className="bg-white p-10 rounded-xl border border-gray-100 shadow-sm">
-              <h3 className="text-3xl font-black text-gray-900 mb-2">Leave a Reply</h3>
-              <p className="text-gray-400 text-sm font-bold mb-8">Your email address will not be published. Required fields are marked *</p>
+            <div className="bg-white p-6 md:p-10 rounded-xl border border-gray-100 shadow-sm">
+              <h3 className="text-2xl md:text-3xl font-black text-gray-900 mb-2">Leave a Reply</h3>
+              <p className="text-gray-400 text-xs md:text-sm font-bold mb-8">Your email address will not be published. Required fields are marked *</p>
 
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -333,18 +329,22 @@ const BlogDetailsPage = () => {
               </div>
               <div className="p-6 grid grid-cols-2 gap-3">
                 {[
-                  { icon: <FaFacebookF />, label: 'Facebook', color: '#3b5998' },
-                  { icon: <FaPinterestP />, label: 'Pinterest', color: '#bd081c' },
-                  { icon: <FaLinkedinIn />, label: 'LinkedIn', color: '#0077b5' },
-                  { icon: <FaYoutube />, label: 'Youtube', color: '#cd201f' },
-                  { icon: <FaTelegramPlane />, label: 'Telegram', color: '#0088cc' },
-                  { icon: <FaDiscord />, label: 'Discord', color: '#7289da' },
+                  { icon: <FaFacebookF />, label: 'Facebook', color: '#3b5998', link: 'https://www.facebook.com/people/DLK-Software-Solutions/61569333069634/' },
+                  { icon: <FaInstagram />, label: 'Instagram', color: '#e1306c', link: 'https://www.instagram.com/dlk_softwaresolutions/' },
+                  { icon: <FaLinkedinIn />, label: 'LinkedIn', color: '#0077b5', link: 'https://www.linkedin.com/company/dlk-software-solutions/' },
+                  { icon: <FaYoutube />, label: 'Youtube', color: '#cd201f', link: 'https://www.youtube.com/@StudentsLearningplatform2026' },
                 ].map(social => (
-                  <div key={social.label} style={{ backgroundColor: social.color }} className="flex flex-col items-center justify-center py-4 rounded-xl text-white cursor-pointer hover:scale-105 transition-transform">
+                  <a 
+                    key={social.label} 
+                    href={social.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ backgroundColor: social.color }} 
+                    className="flex flex-col items-center justify-center py-4 rounded-xl text-white cursor-pointer hover:scale-105 transition-transform"
+                  >
                     <span className="text-xl mb-1">{social.icon}</span>
                     <span className="text-[10px] font-black ">{social.label}</span>
-                    <span className="text-[7px] font-bold opacity-70">1.2k Followers</span>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>

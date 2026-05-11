@@ -254,15 +254,15 @@ const PostBlogPage = () => {
       <div className="w-full max-w-4xl">
         <div className="bg-white rounded-[10px] shadow-2xl overflow-hidden border border-gray-100">
           {/* Header */}
-          <div className="bg-gradient-to-r from-red-600 to-red-500 py-12 px-10 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-r from-red-600 to-red-500 py-8 md:py-12 px-6 md:px-10 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
             <div className="relative z-10">
-              <h1 className="text-5xl font-black mb-2">Create New Blog</h1>
-              <p className="text-white/80 font-medium">Share your thoughts and stories with the world.</p>
+              <h1 className="text-3xl md:text-5xl font-black mb-2">Create New Blog</h1>
+              <p className="text-white/80 text-sm md:text-base font-medium">Share your thoughts and stories with the world.</p>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-10 flex flex-col gap-8">
+          <form onSubmit={handleSubmit} className="p-6 md:p-10 flex flex-col gap-8">
             {/* Title & Category Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">

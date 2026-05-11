@@ -43,9 +43,9 @@ const TagPage = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Page Header */}
-      <div className="bg-white border-b py-10 px-6">
+      <div className="bg-white border-b py-8 md:py-10 px-4 md:px-6">
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
-          <h1 className="text-4xl font-black text-gray-900">Tag: #{tag}</h1>
+          <h1 className="text-2xl md:text-4xl font-black text-gray-900">Tag: #{tag}</h1>
           <div className="text-sm font-bold text-gray-400 flex items-center gap-2">
             <Link to="/" className="flex items-center gap-1 hover:text-red-600"><FaHome size={10} /> DLK Technologies</Link>
             <FaChevronRight size={8} />
@@ -73,14 +73,14 @@ const TagPage = () => {
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-400 font-black text-2xl ">{post.title.charAt(0)}</div>
                     )}
-                    <div className="absolute top-6 right-6 px-4 py-2 bg-red-600 text-white text-xs font-black  rounded-full shadow-lg z-10">
+                    <div className="absolute top-4 md:top-6 right-4 md:right-6 px-3 md:px-4 py-1.5 md:py-2 bg-red-600 text-white text-[10px] md:text-xs font-black  rounded-full shadow-lg z-10 uppercase">
                       {post.category}
                     </div>
                   </div>
 
                   {/* Post Content */}
-                  <div className="p-10">
-                    <div className="flex items-center gap-4 text-xs font-black text-gray-400 mb-6 ">
+                  <div className="p-6 md:p-10">
+                    <div className="flex items-center gap-4 text-[10px] md:text-xs font-black text-gray-400 mb-6 ">
                       <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center border border-red-100 overflow-hidden text-red-600 font-black text-[10px]">
                           {post.author?.charAt(0)}
@@ -94,7 +94,7 @@ const TagPage = () => {
                       </div>
                     </div>
 
-                    <h2 className="text-4xl font-black text-gray-900 leading-tight mb-6 group-hover:text-red-600 transition-colors">
+                    <h2 className="text-2xl md:text-4xl font-black text-gray-900 leading-tight mb-6 group-hover:text-red-600 transition-colors">
                       <Link to={`/blog/${post.slug || post._id}`}>{post.title}</Link>
                     </h2>
 
