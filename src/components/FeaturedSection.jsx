@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useBlogContext } from '../context/BlogContext';
 
 const FeaturedSection = () => {
-    const [blogs, setBlogs] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchBlogs = async () => {
-            try {
-                const res = await axios.get(`${import.meta.env.VITE_API_URL}/blogs`);
-                const allBlogs = res.data;
+    const { blogs, loading } = useBlogContext();
 
                 // Sort by Editor's Choice first, then by views
-                const sorted = [...allBlogs].sort((a, b) => {
+                const sortedBlogs = [...blogs].sort((a, b) => {
                     if (a.isEditorsChoice && !b.isEditorsChoice) return -1;
                     if (!a.isEditorsChoice && b.isEditorsChoice) return 1;
                     return (b.views || 0) - (a.views || 0);
                 });
-
-                setBlogs(sorted);
-            } catch (err) {
-                console.error("Error fetching featured blogs:", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchBlogs();
-    }, []);
 
     if (loading) {
         return (
@@ -53,9 +36,9 @@ const FeaturedSection = () => {
         );
     }
 
-    const mainPost = blogs[0];
-    const sidebarTop = blogs[1];
-    const listPosts = blogs.slice(2, 5);
+    const mainPost = sortedBlogs[0];
+    const sidebarTop = sortedBlogs[1];
+    const listPosts = sortedBlogs.slice(2, 5);
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 

@@ -1,59 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useBlogContext } from '../context/BlogContext';
 
 const TopAuthorsSection = () => {
-  const [blogs, setBlogs] = useState([]);
+  const { blogs, loading } = useBlogContext();
   const [authors, setAuthors] = useState([]);
   const [mustRead, setMustRead] = useState([]);
   const [recentThumbnails, setRecentThumbnails] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/blogs`);
-        const allBlogs = res.data;
-        setBlogs(allBlogs);
+    if (loading || blogs.length === 0) return;
 
-        // 1. Top Authors Logic (Group by author and sum views)
-        const authorMap = {};
-        allBlogs.forEach(blog => {
-          if (!authorMap[blog.author]) {
-            authorMap[blog.author] = {
-              name: blog.author,
-              articles: 0,
-              totalViews: 0,
-              avatar: blog.authorAvatar,
-              slug: blog.author.toLowerCase().replace(/ /g, '-')
-            };
-          }
-          authorMap[blog.author].articles += 1;
-          authorMap[blog.author].totalViews += (blog.views || 0);
-        });
-
-        const sortedAuthors = Object.values(authorMap)
-          .sort((a, b) => b.totalViews - a.totalViews)
-          .slice(0, 12);
-        setAuthors(sortedAuthors);
-
-        // 2. Must Read Logic (Highest Views)
-        const sortedByViews = [...allBlogs]
-          .sort((a, b) => (b.views || 0) - (a.views || 0))
-          .slice(0, 3);
-        setMustRead(sortedByViews);
-
-        // 3. Recent Post Thumbnails
-        const sortedByDate = [...allBlogs]
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-          .slice(0, 9);
-        setRecentThumbnails(sortedByDate);
-
-      } catch (err) {
-        console.error("Error fetching Top Authors Section data:", err);
+    // 1. Top Authors Logic (Group by author and sum views)
+    const authorMap = {};
+    blogs.forEach(blog => {
+      if (!authorMap[blog.author]) {
+        authorMap[blog.author] = {
+          name: blog.author,
+          articles: 0,
+          totalViews: 0,
+          avatar: blog.authorAvatar,
+          slug: blog.author.toLowerCase().replace(/ /g, '-')
+        };
       }
-    };
-    fetchData();
-  }, []);
+      authorMap[blog.author].articles += 1;
+      authorMap[blog.author].totalViews += (blog.views || 0);
+    });
+
+    const sortedAuthors = Object.values(authorMap)
+      .sort((a, b) => b.totalViews - a.totalViews)
+      .slice(0, 12);
+    setAuthors(sortedAuthors);
+
+    // 2. Must Read Logic (Highest Views)
+    const sortedByViews = [...blogs]
+      .sort((a, b) => (b.views || 0) - (a.views || 0))
+      .slice(0, 3);
+    setMustRead(sortedByViews);
+
+    // 3. Recent Post Thumbnails
+    const sortedByDate = [...blogs]
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .slice(0, 9);
+    setRecentThumbnails(sortedByDate);
+  }, [blogs, loading]);
 
   return (
     <section className="w-full px-4 lg:px-8 py-12">

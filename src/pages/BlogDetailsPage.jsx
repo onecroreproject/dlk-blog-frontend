@@ -7,57 +7,52 @@ import {
   FaDiscord, FaThLarge, FaInstagram, FaRegComment, FaEnvelope,
   FaEye, FaShareAlt
 } from "react-icons/fa";
+import { useBlogContext } from '../context/BlogContext';
 
 const BlogDetailsPage = () => {
   const { idOrSlug } = useParams();
+  const { blogs, categories, loading: contextLoading } = useBlogContext();
   const [blog, setBlog] = useState(null);
-  const [blogs, setBlogs] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const fetchData = async () => {
+    const fetchSpecificBlog = async () => {
       setLoading(true);
       try {
-        setLoading(true);
-        // Check if idOrSlug is likely a MongoDB ID or a slug
         const isMongoId = /^[0-9a-fA-F]{24}$/.test(idOrSlug);
         const blogUrl = isMongoId
           ? `${import.meta.env.VITE_API_URL}/blogs/${idOrSlug}`
           : `${import.meta.env.VITE_API_URL}/blogs/slug/${idOrSlug}`;
 
-        const [blogRes, allBlogsRes, catsRes] = await Promise.all([
-          axios.get(blogUrl),
-          axios.get(`${import.meta.env.VITE_API_URL}/blogs`),
-          axios.get(`${import.meta.env.VITE_API_URL}/categories`)
-        ]);
+        const blogRes = await axios.get(blogUrl);
         setBlog(blogRes.data);
-        setBlogs(allBlogsRes.data);
-        setCategories(catsRes.data);
+        setError(null);
       } catch (err) {
-        console.error('Error fetching blog data:', err);
+        console.error('Error fetching blog details:', err);
         setError('Article not found');
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
-    window.scrollTo(0, 0);
+    fetchSpecificBlog();
+  }, [idOrSlug]);
 
-    // View Count Logic: Increment if user stays for 2 minutes
+  useEffect(() => {
+    if (!blog) return;
+
     const viewTimer = setTimeout(async () => {
       try {
-        await axios.patch(`${import.meta.env.VITE_API_URL}/blogs/${id}/view`);
+        await axios.patch(`${import.meta.env.VITE_API_URL}/blogs/${blog._id}/view`);
         setBlog(prev => prev ? { ...prev, views: (prev.views || 0) + 1 } : null);
       } catch (err) {
         console.error('Error incrementing view count:', err);
       }
-    }, 60000); // 60,000ms = 1 minutes
+    }, 60000);
 
     return () => clearTimeout(viewTimer);
-  }, [idOrSlug]);
+  }, [blog?._id]);
 
   const handleShare = async (platform) => {
     const url = window.location.href;
@@ -71,7 +66,7 @@ const BlogDetailsPage = () => {
     if (shareUrl) {
       window.open(shareUrl, '_blank');
       try {
-        await axios.patch(`${import.meta.env.VITE_API_URL}/blogs/${id}/share`);
+        await axios.patch(`${import.meta.env.VITE_API_URL}/blogs/${blog._id}/share`);
         setBlog(prev => prev ? { ...prev, shares: (prev.shares || 0) + 1 } : null);
       } catch (err) {
         console.error('Error incrementing share count:', err);
@@ -79,7 +74,7 @@ const BlogDetailsPage = () => {
     }
   };
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center font-black text-3xl  text-gray-400">Loading Article...</div>;
+  if (loading || contextLoading) return <div className="min-h-screen flex items-center justify-center font-black text-3xl  text-gray-400">Loading Article...</div>;
   if (error) return <div className="min-h-screen flex items-center justify-center font-black text-2xl  text-red-600">{error}</div>;
   if (!blog) return null;
 

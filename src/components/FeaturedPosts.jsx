@@ -1,39 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useBlogContext } from '../context/BlogContext';
 
 const FeaturedPosts = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { blogs, loading } = useBlogContext();
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/blogs`);
-        const allBlogs = res.data;
-
-        // Sort by Editor's Choice first, then by views
-        const sorted = [...allBlogs].sort((a, b) => {
-          if (a.isEditorsChoice && !b.isEditorsChoice) return -1;
-          if (!a.isEditorsChoice && b.isEditorsChoice) return 1;
-          return (b.views || 0) - (a.views || 0);
-        });
-
-        setBlogs(sorted);
-      } catch (err) {
-        console.error("Error fetching featured posts data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBlogs();
-  }, []);
+  // Sort by Editor's Choice first, then by views
+  const sortedBlogs = [...blogs].sort((a, b) => {
+    if (a.isEditorsChoice && !b.isEditorsChoice) return -1;
+    if (!a.isEditorsChoice && b.isEditorsChoice) return 1;
+    return (b.views || 0) - (a.views || 0);
+  });
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   // We skip the first 5 because they are likely used in the Hero FeaturedSection
-  const horizontalPosts = blogs.slice(5, 8);
-  const gridPosts = blogs.slice(8, 12);
+  const horizontalPosts = sortedBlogs.slice(5, 8);
+  const gridPosts = sortedBlogs.slice(8, 12);
 
   if (loading) {
     return (

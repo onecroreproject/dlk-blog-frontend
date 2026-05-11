@@ -1,29 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useBlogContext } from '../context/BlogContext';
 
 const CategorySlider = () => {
-  const [categories, setCategories] = useState([]);
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { blogs, categories, loading } = useBlogContext();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [catsRes, blogsRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_API_URL}/categories`),
-          axios.get(`${import.meta.env.VITE_API_URL}/blogs`)
-        ]);
-        setCategories(catsRes.data);
-        setBlogs(blogsRes.data);
-      } catch (err) {
-        console.error('Error fetching categories:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+
 
   const getBlogCount = (catName) => {
     return blogs.filter(blog => blog.category === catName).length;

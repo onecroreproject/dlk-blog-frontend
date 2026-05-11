@@ -1,24 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaPlay } from "react-icons/fa";
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useBlogContext } from '../context/BlogContext';
 
 const EditorsChoice = () => {
-  const [blogs, setBlogs] = useState([]);
+  const { blogs, loading } = useBlogContext();
   const [activeTab, setActiveTab] = useState("STORIES OF THE DAY");
   const categories = ["STORIES OF THE DAY", "STORIES OF THE WEEK", "STORIES OF THE MONTH"];
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/blogs`);
-        setBlogs(res.data);
-      } catch (err) {
-        console.error("Error fetching Editor's Choice:", err);
-      }
-    };
-    fetchBlogs();
-  }, []);
+
 
   const getFilteredPosts = () => {
     const now = new Date();
@@ -46,6 +36,8 @@ const EditorsChoice = () => {
   const displayPosts = getFilteredPosts();
   const mainPost = displayPosts[0];
   const sidePosts = displayPosts.slice(1, 5);
+
+  if (loading) return null; // Or a skeleton
 
   return (
     <section className="bg-green-700 py-16 mt-12">

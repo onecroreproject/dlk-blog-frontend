@@ -2,44 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FaCalendarAlt, FaChevronRight, FaFacebookF, FaPinterestP, FaLinkedinIn, FaYoutube, FaTelegramPlane, FaDiscord, FaInstagram } from "react-icons/fa";
+import { useBlogContext } from '../context/BlogContext';
 
 const CategoryPage = () => {
   const { name } = useParams(); // This is the slug, e.g., "full-stack-development"
-  const [blogs, setBlogs] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { blogs, categories, loading } = useBlogContext();
   const [categoryName, setCategoryName] = useState('');
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const [blogsRes, catsRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_API_URL}/blogs`),
-          axios.get(`${import.meta.env.VITE_API_URL}/categories`)
-        ]);
-
-        setBlogs(blogsRes.data);
-        setCategories(catsRes.data);
-
-        // Find the actual category name from the categories list using the slug
-        if (name === 'all') {
-          setCategoryName('All Posts');
-        } else {
-          const currentCat = catsRes.data.find(c => c.name.toLowerCase().replace(/ /g, '-') === name);
-          setCategoryName(currentCat ? currentCat.name : name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '));
-        }
-      } catch (err) {
-        console.error("Error fetching category page data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [name]);
+    // Find the actual category name from the categories list using the slug
+    if (name === 'all') {
+      setCategoryName('All Posts');
+    } else if (categories.length > 0) {
+      const currentCat = categories.find(c => c.name.toLowerCase().replace(/ /g, '-') === name);
+      setCategoryName(currentCat ? currentCat.name : name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '));
+    }
+  }, [name, categories]);
 
   // Filter blogs for this category
   const filteredPosts = name === 'all'

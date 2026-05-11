@@ -2,27 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBell, FaCalendarAlt, FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube } from "react-icons/fa";
 import axios from 'axios';
+import { useBlogContext } from '../context/BlogContext';
 import logo from '../assets/dlk_logo.png';
 
 const Footer = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [blogsRes, catsRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_API_URL}/blogs`),
-          axios.get(`${import.meta.env.VITE_API_URL}/categories`)
-        ]);
-        setBlogs(blogsRes.data);
-        setCategories(catsRes.data);
-      } catch (err) {
-        console.error('Footer data fetch error:', err);
-      }
-    };
-    fetchData();
-  }, []);
+  const { blogs, categories, loading } = useBlogContext();
 
   // Top Categories Logic
   const topCategories = categories.map(cat => ({

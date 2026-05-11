@@ -6,9 +6,11 @@ import { FaCloudUploadAlt, FaTimes, FaImage, FaHeading, FaTags, FaUser, FaCheck,
 import { SlArrowDown } from "react-icons/sl";
 import { FiSearch } from "react-icons/fi";
 import Cropper from 'react-easy-crop';
+import { useBlogContext } from '../context/BlogContext';
 
 
 const PostBlogPage = () => {
+  const { categories, refreshData } = useBlogContext();
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [author, setAuthor] = useState('');
@@ -28,7 +30,6 @@ const PostBlogPage = () => {
     blogImage2: null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [categories, setCategories] = useState([]); // Dynamic categories
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [categorySearch, setCategorySearch] = useState('');
 
@@ -39,10 +40,6 @@ const PostBlogPage = () => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
 
   const handleAddTag = (e) => {
     if (e.key === 'Enter' || e.key === ',') {
@@ -57,15 +54,6 @@ const PostBlogPage = () => {
 
   const removeTag = (tagToRemove) => {
     setTags(tags.filter(tag => tag !== tagToRemove));
-  };
-
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/categories`);
-      setCategories(response.data);
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    }
   };
 
   const handleImageChange = (e, type) => {
@@ -218,6 +206,9 @@ const PostBlogPage = () => {
       setAvatarPreview(null);
       setImages({ titleImage: null, blogImage1: null, blogImage2: null });
       setPreviews({ titleImage: null, blogImage1: null, blogImage2: null });
+      
+      // Refresh global blog data to show the new post immediately
+      refreshData();
     } catch (error) {
       console.error('Error submitting blog:', error);
       alert('Failed to publish blog post.');

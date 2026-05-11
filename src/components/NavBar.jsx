@@ -5,6 +5,7 @@ import { FiSearch, FiX, FiLock, FiAlertCircle, FiMenu } from "react-icons/fi";
 import axios from 'axios';
 import Logo from "../assets/dlk_logo.png";
 import { useEffect } from 'react';
+import { useBlogContext } from '../context/BlogContext';
 
 
 function NavBar() {
@@ -15,8 +16,7 @@ function NavBar() {
   const [isVerifying, setIsVerifying] = useState(false);
 
   // Dynamic Data State
-  const [blogs, setBlogs] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const { blogs, categories, loading: navLoading } = useBlogContext();
   const [isPagesOpen, setIsPagesOpen] = useState(false);
   const [isNewsOpen, setIsNewsOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
@@ -25,22 +25,9 @@ function NavBar() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
 
-  const fetchData = async () => {
-    try {
-      const [blogsRes, catsRes] = await Promise.all([
-        axios.get(`${import.meta.env.VITE_API_URL}/blogs`),
-        axios.get(`${import.meta.env.VITE_API_URL}/categories`)
-      ]);
-      setBlogs(blogsRes.data);
-      setCategories(catsRes.data);
-    } catch (err) {
-      console.error('Error fetching nav data:', err);
-    }
-  };
+
+
 
   const getBlogCount = (catName) => {
     return blogs.filter(blog => blog.category === catName).length;

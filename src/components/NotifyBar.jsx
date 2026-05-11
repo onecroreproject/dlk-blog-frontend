@@ -1,36 +1,20 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useBlogContext } from "../context/BlogContext";
 import { FaBolt, FaFacebookF, FaLinkedinIn, FaInstagram, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 function NotifyBar() {
+  const { blogs, loading } = useBlogContext();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState("translate-x-0 opacity-100");
   const [trendingNews, setTrendingNews] = useState(["Loading latest news..."]);
 
   useEffect(() => {
-    fetchLatestBlogs();
-    
-    // Polling: Update news every 30 seconds without refresh
-    const pollInterval = setInterval(() => {
-      fetchLatestBlogs();
-    }, 30000); 
-
-    return () => clearInterval(pollInterval);
-  }, []);
-
-  const fetchLatestBlogs = async () => {
-    try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/blogs`);
-      if (res.data && res.data.length > 0) {
-        setTrendingNews(res.data.map(blog => blog.title));
-      } else {
-        setTrendingNews(["Welcome to DLK Technologies Blog Platform"]);
-      }
-    } catch (err) {
-      console.error("Error fetching trending news:", err);
-      setTrendingNews(["Stay updated with latest news and tech trends"]);
+    if (!loading && blogs.length > 0) {
+      setTrendingNews(blogs.map(blog => blog.title));
+    } else if (!loading && blogs.length === 0) {
+      setTrendingNews(["Welcome to DLK Technologies Blog Platform"]);
     }
-  };
+  }, [blogs, loading]);
 
   useEffect(() => {
     if (trendingNews.length <= 1) return;

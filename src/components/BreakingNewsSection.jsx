@@ -1,42 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useBlogContext } from '../context/BlogContext';
 
 const BreakingNewsSection = () => {
+  const { blogs, loading } = useBlogContext();
   const [leftPosts, setLeftPosts] = useState([]);
   const [rightPosts, setRightPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/blogs`);
-        const allBlogs = res.data;
+    if (loading || blogs.length === 0) return;
 
-        // Filter for News category
-        const newsBlogs = allBlogs.filter(b => b.category.toLowerCase() === 'news');
+    // Filter for News category
+    const newsBlogs = blogs.filter(b => b.category.toLowerCase() === 'news');
 
-        if (newsBlogs.length > 0) {
-          // Left side: Top 3 news by views
-          const topNews = [...newsBlogs]
-            .sort((a, b) => (b.views || 0) - (a.views || 0))
-            .slice(0, 3);
-          setLeftPosts(topNews);
+    if (newsBlogs.length > 0) {
+      // Left side: Top 3 news by views
+      const topNews = [...newsBlogs]
+        .sort((a, b) => (b.views || 0) - (a.views || 0))
+        .slice(0, 3);
+      setLeftPosts(topNews);
 
-          // Right side: Recent news (excluding top news if possible, or just most recent 2)
-          const recentNews = [...newsBlogs]
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            .slice(0, 2);
-          setRightPosts(recentNews);
-        }
-      } catch (err) {
-        console.error("Error fetching breaking news:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchNews();
-  }, []);
+      // Right side: Recent news
+      const recentNews = [...newsBlogs]
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 2);
+      setRightPosts(recentNews);
+    }
+  }, [blogs, loading]);
 
   return (
     <section className="w-full px-4 lg:px-8 py-12">

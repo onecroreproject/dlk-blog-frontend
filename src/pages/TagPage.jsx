@@ -2,28 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FaCalendarAlt, FaChevronRight, FaUser, FaHome } from "react-icons/fa";
+import { useBlogContext } from '../context/BlogContext';
 
 const TagPage = () => {
   const { tag } = useParams();
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { blogs, loading } = useBlogContext();
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/blogs`);
-        setBlogs(res.data);
-      } catch (err) {
-        console.error("Error fetching tag page data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
   }, [tag]);
 
   // Filter blogs for this tag

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useBlogContext } from '../context/BlogContext';
 
 const ImageSlider = () => {
+    const { blogs: allBlogsFromContext, loading } = useBlogContext();
     const [blogs, setBlogs] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
@@ -16,17 +17,10 @@ const ImageSlider = () => {
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     useEffect(() => {
-        fetchBlogs();
-    }, []);
-
-    const fetchBlogs = async () => {
-        try {
-            const res = await axios.get(`${API_URL}/blogs`);
-            setBlogs(res.data.slice(0, 5));
-        } catch (err) {
-            console.error("Error fetching slider blogs:", err);
+        if (!loading && allBlogsFromContext.length > 0) {
+            setBlogs(allBlogsFromContext.slice(0, 5));
         }
-    };
+    }, [allBlogsFromContext, loading]);
 
     useEffect(() => {
         const handleResize = () => {

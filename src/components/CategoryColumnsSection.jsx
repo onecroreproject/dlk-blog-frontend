@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaFacebookF, FaPinterestP, FaLinkedinIn, FaYoutube, FaTelegramPlane, FaDiscord } from "react-icons/fa";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useBlogContext } from '../context/BlogContext';
 
 const CategoryColumnsSection = () => {
+  const { blogs, loading } = useBlogContext();
   const [allCategoryData, setAllCategoryData] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -12,17 +14,14 @@ const CategoryColumnsSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [catsRes, blogsRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_API_URL}/categories`),
-          axios.get(`${import.meta.env.VITE_API_URL}/blogs`)
-        ]);
-
+        const catsRes = await axios.get(`${import.meta.env.VITE_API_URL}/categories`);
         const allCats = catsRes.data;
-        const allBlogs = blogsRes.data;
+
+        if (loading || blogs.length === 0) return;
 
         // Group blogs by category and limit to top 3
         const processed = allCats.map(cat => {
-          const catBlogs = allBlogs.filter(b => b.category === cat.name);
+          const catBlogs = blogs.filter(b => b.category === cat.name);
           if (catBlogs.length === 0) return null;
 
           return {
@@ -38,7 +37,7 @@ const CategoryColumnsSection = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [blogs, loading]);
 
   useEffect(() => {
     const handleResize = () => {
