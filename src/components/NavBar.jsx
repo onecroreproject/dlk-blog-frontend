@@ -329,7 +329,7 @@ function NavBar() {
               </li>
 
               <li className="cursor-pointer hover:text-green-600 transition-colors pl-6 flex items-center h-full">
-                <Link to="/contact">Contact</Link>
+                <a href="https://dlksoftwaresolutions.co.in/contact" target="_blank" rel="noopener noreferrer">Contact</a>
               </li>
             </ul>
           </div>
