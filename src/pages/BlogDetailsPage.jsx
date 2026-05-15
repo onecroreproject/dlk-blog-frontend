@@ -110,9 +110,9 @@ const BlogDetailsPage = () => {
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
           <h1 className="text-2xl md:text-4xl font-black text-gray-900">{blog.title}</h1>
           <div className="flex items-center gap-2 text-[11px] font-bold text-gray-400 tracking-wider">
-            <Link to="/" className="hover:text-red-600 transition-colors">ebuzz</Link>
+            <Link to="/" className="hover:text-red-600 transition-colors">Home</Link>
             <span className="text-gray-300">&gt;</span>
-            <span className="hover:text-red-600 cursor-pointer">{blog.category}</span>
+            <Link to={`/category/${blog.category.toLowerCase().replace(/ /g, '-')}`} className="hover:text-red-600 cursor-pointer">{blog.category}</Link>
             <span className="text-gray-300">&gt;</span>
             <span className="text-red-600">Details</span>
           </div>
@@ -193,9 +193,13 @@ const BlogDetailsPage = () => {
                 <div className="flex flex-wrap gap-2">
                   {blog.tags && blog.tags.length > 0 ? (
                     blog.tags.map((tag, i) => (
-                      <span key={i} className="px-3 py-1 bg-gray-100 text-gray-500 rounded-full text-[11px] font-black hover:bg-red-600 hover:text-white transition-all cursor-pointer">
+                      <Link 
+                        key={i} 
+                        to={`/tag/${tag}`} 
+                        className="px-3 py-1 bg-gray-100 text-gray-500 rounded-full text-[11px] font-black hover:bg-red-600 hover:text-white transition-all cursor-pointer"
+                      >
                         {tag}
-                      </span>
+                      </Link>
                     ))
                   ) : (
                     <span className="text-gray-400">No tags found</span>
@@ -288,10 +292,14 @@ const BlogDetailsPage = () => {
               </div>
               <div className="p-6 space-y-4">
                 {categories.map(cat => (
-                  <div key={cat._id} className="flex justify-between items-center group cursor-pointer">
+                  <Link 
+                    key={cat._id} 
+                    to={`/category/${cat.name.toLowerCase().replace(/ /g, '-')}`} 
+                    className="flex justify-between items-center group cursor-pointer"
+                  >
                     <span className="text-base font-bold text-gray-500 group-hover:text-red-600 transition-colors">{cat.name}</span>
                     <span className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-xs font-black text-gray-400 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">{getBlogCount(cat.name)}</span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -351,9 +359,13 @@ const BlogDetailsPage = () => {
               </div>
               <div className="p-6 grid grid-cols-3 gap-2">
                 {blogs.slice(0, 6).map((item, i) => (
-                  <div key={i} className="aspect-square rounded-lg overflow-hidden bg-gray-100 shadow-sm hover:opacity-80 transition-opacity cursor-pointer">
+                  <Link 
+                    key={i} 
+                    to={`/blog/${item.slug || item._id}`} 
+                    className="aspect-square rounded-lg overflow-hidden bg-gray-100 shadow-sm hover:opacity-80 transition-opacity cursor-pointer"
+                  >
                     <img src={`${import.meta.env.VITE_BASE_URL}/${item.titleImage}`} alt="" className="w-full h-full object-cover" />
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -366,9 +378,13 @@ const BlogDetailsPage = () => {
               <div className="p-6 flex flex-wrap gap-2">
                 {popularTags.length > 0 ? (
                   popularTags.map(tag => (
-                    <div key={tag} className="px-4 py-2 bg-gray-50 rounded-full text-xs font-black text-gray-500 hover:bg-red-600 hover:text-white cursor-pointer transition-all border border-gray-100 shadow-sm">
+                    <Link 
+                      key={tag} 
+                      to={`/tag/${tag}`} 
+                      className="px-4 py-2 bg-gray-50 rounded-full text-xs font-black text-gray-500 hover:bg-red-600 hover:text-white cursor-pointer transition-all border border-gray-100 shadow-sm"
+                    >
                       {tag}
-                    </div>
+                    </Link>
                   ))
                 ) : (
                   <span className="text-gray-400 text-xs font-bold  px-2">No tags available</span>

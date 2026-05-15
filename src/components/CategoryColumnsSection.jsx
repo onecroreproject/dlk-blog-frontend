@@ -95,10 +95,13 @@ const CategoryColumnsSection = () => {
           {visibleCategories.length > 0 ? (
             visibleCategories.map((section, idx) => (
               <div key={idx} className="flex flex-col gap-6 animate-fade-in">
-                <div className="flex items-center gap-4 mb-2">
-                  <h2 className="text-2xl md:text-3xl font-black text-gray-900">{section.title}</h2>
+                <Link 
+                  to={`/category/${section.title.toLowerCase().replace(/ /g, '-')}`} 
+                  className="flex items-center gap-4 mb-2 group/title"
+                >
+                  <h2 className="text-2xl md:text-3xl font-black text-gray-900 group-hover/title:text-red-600 transition-colors">{section.title}</h2>
                   <div className="flex-grow h-[1px] bg-gray-200"></div>
-                </div>
+                </Link>
 
                 {/* Main Post */}
                 <Link to={`/blog/${section.mainPost._id}`} className="relative h-48 rounded-xl overflow-hidden group cursor-pointer shadow-md block border border-gray-100">

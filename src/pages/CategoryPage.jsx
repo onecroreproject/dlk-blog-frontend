@@ -1,31 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { FaCalendarAlt, FaChevronRight, FaFacebookF, FaPinterestP, FaLinkedinIn, FaYoutube, FaTelegramPlane, FaDiscord, FaInstagram } from "react-icons/fa";
+import { FaCalendarAlt, FaChevronRight, FaChevronLeft, FaFacebookF, FaPinterestP, FaLinkedinIn, FaYoutube, FaTelegramPlane, FaDiscord, FaInstagram } from "react-icons/fa";
 import { useBlogContext } from '../context/BlogContext';
 
 const CategoryPage = () => {
   const { name } = useParams(); // This is the slug, e.g., "full-stack-development"
   const { blogs, categories, loading } = useBlogContext();
   const [categoryName, setCategoryName] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 8;
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     window.scrollTo(0, 0);
     // Find the actual category name from the categories list using the slug
+    // Find the actual category name from the categories list using the slug
     if (name === 'all') {
       setCategoryName('All Posts');
     } else if (categories.length > 0) {
-      const currentCat = categories.find(c => c.name.toLowerCase().replace(/ /g, '-') === name);
+      const normalizedParam = name.toLowerCase().replace(/ /g, '-');
+      const currentCat = categories.find(c => c.name.toLowerCase().replace(/ /g, '-') === normalizedParam);
       setCategoryName(currentCat ? currentCat.name : name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '));
     }
+    setCurrentPage(1); // Reset to first page on category change
   }, [name, categories]);
 
   // Filter blogs for this category
   const filteredPosts = name === 'all'
     ? blogs
-    : blogs.filter(blog => blog.category.toLowerCase().replace(/ /g, '-') === name);
+    : blogs.filter(blog => {
+        const blogSlug = blog.category?.toLowerCase().replace(/ /g, '-');
+        const paramSlug = name.toLowerCase().replace(/ /g, '-');
+        return blogSlug === paramSlug;
+      });
+
+  // Pagination Logic
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Sidebar: Category Counts
   const categoryCounts = categories.map(cat => ({
@@ -78,68 +98,112 @@ const CategoryPage = () => {
 
           {/* Main Content: Post List */}
           <div className="lg:col-span-8 flex flex-col gap-10">
-            {filteredPosts.length > 0 ? (
-              filteredPosts.map((post) => (
-                <div key={post._id} className="bg-white rounded-[10px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
-                  {/* Post Image */}
-                  <div className="aspect-video bg-gray-200 overflow-hidden relative">
-                    {post.titleImage ? (
-                      <img
-                        src={`${BASE_URL}/${post.titleImage}`}
-                        alt=""
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400 font-black text-2xl ">{post.title.charAt(0)}</div>
-                    )}
-                    <div className="absolute top-4 md:top-6 right-4 md:right-6 px-3 md:px-4 py-1.5 md:py-2 bg-red-600 text-white text-[10px] md:text-xs font-black  rounded-full shadow-lg z-10 uppercase">
-                      {post.category}
+            {currentPosts.length > 0 ? (
+              <>
+                {currentPosts.map((post) => (
+                  <div key={post._id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col md:flex-row">
+                    {/* Post Image */}
+                    <div className="md:w-1/3 aspect-video md:aspect-auto overflow-hidden relative">
+                      {post.titleImage ? (
+                        <img
+                          src={`${BASE_URL}/${post.titleImage}`}
+                          alt=""
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400 font-black text-2xl ">{post.title.charAt(0)}</div>
+                      )}
+                      <div className="absolute top-4 right-4 px-3 py-1.5 bg-red-600 text-white text-[9px] font-black rounded-full shadow-lg z-10 uppercase">
+                        {post.category}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Post Content */}
-                  <div className="p-6 md:p-10">
-                    <div className="flex items-center gap-4 text-[10px] md:text-xs font-black text-gray-400 mb-6 ">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center border border-red-100 overflow-hidden text-red-600">
-                          {post.authorAvatar ? (
-                            <img src={`${BASE_URL}/${post.authorAvatar}`} alt="" className="w-full h-full object-cover" />
-                          ) : (
-                            <span>{post.author?.charAt(0)}</span>
-                          )}
+                    {/* Post Content */}
+                    <div className="flex-grow p-5 md:p-7 flex flex-col justify-center">
+                      <div className="flex items-center gap-4 text-[10px] font-black text-gray-400 mb-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full bg-red-50 flex items-center justify-center border border-red-100 overflow-hidden text-red-600">
+                            {post.authorAvatar ? (
+                              <img src={`${BASE_URL}/${post.authorAvatar}`} alt="" className="w-full h-full object-cover" />
+                            ) : (
+                              <span className="text-[10px]">{post.author?.charAt(0)}</span>
+                            )}
+                          </div>
+                          <span>by {post.author}</span>
                         </div>
-                        <span>by {post.author}</span>
+                        <span className="hidden sm:inline">•</span>
+                        <div className="flex items-center gap-2">
+                          <FaCalendarAlt className="text-red-600" />
+                          <span>{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                        </div>
                       </div>
-                      <span className="hidden sm:inline">•</span>
-                      <div className="flex items-center gap-2">
-                        <FaCalendarAlt className="text-red-600" />
-                        <span>{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+
+                      <h2 className="text-xl md:text-2xl font-black text-gray-900 leading-tight mb-3 group-hover:text-red-600 transition-colors line-clamp-2">
+                        <Link to={`/blog/${post.slug || post._id}`}>{post.title}</Link>
+                      </h2>
+
+                      <div
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                        className="text-gray-500 font-medium leading-relaxed mb-4 line-clamp-2 text-sm"
+                      ></div>
+
+                      <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
+                        <Link to={`/blog/${post.slug || post._id}`}>
+                          <button className="text-red-600 font-black text-[10px] tracking-[2px] uppercase hover:text-black transition-all flex items-center gap-2">
+                            Read More <FaChevronRight size={10} />
+                          </button>
+                        </Link>
+                        <div className="flex items-center gap-2 text-[10px] font-black text-gray-400">
+                          <span>1 min read</span>
+                        </div>
                       </div>
-                    </div>
-
-                    <h2 className="text-2xl md:text-4xl font-black text-gray-900 leading-tight mb-6 group-hover:text-red-600 transition-colors">
-                      <Link to={`/blog/${post.slug || post._id}`}>{post.title}</Link>
-                    </h2>
-
-                    <div
-                      dangerouslySetInnerHTML={{ __html: post.content }}
-                      className="text-gray-500 font-medium leading-relaxed mb-8 line-clamp-3 text-base"
-                    ></div>
-
-                    <Link to={`/blog/${post.slug || post._id}`}>
-                      <button className="bg-red-600 text-white font-black text-[11px] tracking-[2px] px-8 py-4 rounded-xl hover:bg-red-700 transition-all shadow-lg shadow-red-100 mb-8">
-                        Read More
-                      </button>
-                    </Link>
-
-                    <div className="pt-8 border-t border-gray-50 flex items-center gap-4 text-xs font-black  text-gray-400">
-                      <span className="text-red-600 hover:underline cursor-pointer">{post.category}</span>
-                      <span>•</span>
-                      <span>1 min read</span>
                     </div>
                   </div>
-                </div>
-              ))
+                ))}
+
+                {/* Pagination UI */}
+                {totalPages > 1 && (
+                  <div className="flex justify-center items-center gap-3 mt-10">
+                    <button
+                      onClick={() => paginate(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all border ${
+                        currentPage === 1 
+                        ? 'bg-gray-100 text-gray-300 border-gray-100 cursor-not-allowed' 
+                        : 'bg-white text-gray-600 border-gray-200 hover:bg-red-600 hover:text-white hover:border-red-600 shadow-sm'
+                      }`}
+                    >
+                      <FaChevronLeft size={14} />
+                    </button>
+                    
+                    {[...Array(totalPages)].map((_, i) => (
+                      <button
+                        key={i + 1}
+                        onClick={() => paginate(i + 1)}
+                        className={`w-12 h-12 rounded-xl text-sm font-black transition-all border ${
+                          currentPage === i + 1
+                          ? 'bg-red-600 text-white border-red-600 shadow-md shadow-red-100'
+                          : 'bg-white text-gray-600 border-gray-200 hover:border-red-600 hover:text-red-600 shadow-sm'
+                        }`}
+                      >
+                        {i + 1}
+                      </button>
+                    ))}
+
+                    <button
+                      onClick={() => paginate(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all border ${
+                        currentPage === totalPages 
+                        ? 'bg-gray-100 text-gray-300 border-gray-100 cursor-not-allowed' 
+                        : 'bg-white text-gray-600 border-gray-200 hover:bg-red-600 hover:text-white hover:border-red-600 shadow-sm'
+                      }`}
+                    >
+                      <FaChevronRight size={14} />
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="text-center py-32 bg-white rounded-[10px] border border-gray-100 shadow-sm">
                 <h2 className="text-2xl font-black text-gray-300 ">No Posts Found in {categoryName}</h2>
