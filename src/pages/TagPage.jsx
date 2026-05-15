@@ -3,6 +3,27 @@ import { Link, useParams } from 'react-router-dom';
 import { FaCalendarAlt, FaChevronRight, FaChevronLeft, FaFacebookF, FaPinterestP, FaLinkedinIn, FaYoutube, FaTelegramPlane, FaDiscord, FaInstagram, FaHome } from "react-icons/fa";
 import { useBlogContext } from '../context/BlogContext';
 
+const BlogImage = ({ src, title }) => {
+  const [error, setError] = useState(false);
+  
+  if (error || !src || src.endsWith('undefined') || src.endsWith('null')) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400 font-black text-4xl uppercase">
+        {title ? title.charAt(0) : '?'}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt=""
+      onError={() => setError(true)}
+      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+    />
+  );
+};
+
 const TagPage = () => {
   const { tag } = useParams();
   const { blogs, categories, loading } = useBlogContext();
@@ -86,20 +107,13 @@ const TagPage = () => {
                 {currentPosts.map((post) => (
                   <div key={post._id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col md:flex-row">
                     {/* Post Image */}
-                    <div className="md:w-1/3 aspect-video md:aspect-[4/3] overflow-hidden relative bg-gray-100">
-                      {post.titleImage ? (
-                        <img
-                          src={`${BASE_URL}/${post.titleImage}`}
-                          alt=""
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-400 font-black text-2xl ">{post.title.charAt(0)}</div>
-                      )}
+                    <div className="md:w-[300px] flex-shrink-0 aspect-video md:aspect-[4/3] overflow-hidden relative bg-gray-100">
+                      <BlogImage src={`${BASE_URL}/${post.titleImage}`} title={post.title} />
                       <div className="absolute top-4 right-4 px-3 py-1.5 bg-red-600 text-white text-[9px] font-black rounded-full shadow-lg z-10 uppercase">
                         {post.category}
                       </div>
                     </div>
+                    
 
                     {/* Post Content */}
                     <div className="flex-grow p-5 md:p-7 flex flex-col justify-center">

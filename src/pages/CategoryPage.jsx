@@ -4,6 +4,27 @@ import axios from 'axios';
 import { FaCalendarAlt, FaChevronRight, FaChevronLeft, FaFacebookF, FaPinterestP, FaLinkedinIn, FaYoutube, FaTelegramPlane, FaDiscord, FaInstagram } from "react-icons/fa";
 import { useBlogContext } from '../context/BlogContext';
 
+const BlogImage = ({ src, title }) => {
+  const [error, setError] = useState(false);
+  
+  if (error || !src || src.endsWith('undefined') || src.endsWith('null')) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400 font-black text-4xl uppercase">
+        {title ? title.charAt(0) : '?'}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt=""
+      onError={() => setError(true)}
+      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+    />
+  );
+};
+
 const CategoryPage = () => {
   const { name } = useParams(); // This is the slug, e.g., "full-stack-development"
   const { blogs, categories, loading } = useBlogContext();
@@ -103,16 +124,8 @@ const CategoryPage = () => {
                 {currentPosts.map((post) => (
                   <div key={post._id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col md:flex-row">
                     {/* Post Image */}
-                    <div className="md:w-1/3 aspect-video md:aspect-[4/3] overflow-hidden relative bg-gray-100">
-                      {post.titleImage ? (
-                        <img
-                          src={`${BASE_URL}/${post.titleImage}`}
-                          alt=""
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-400 font-black text-2xl ">{post.title.charAt(0)}</div>
-                      )}
+                    <div className="md:w-[300px] flex-shrink-0 aspect-video md:aspect-[4/3] overflow-hidden relative bg-gray-100">
+                      <BlogImage src={`${BASE_URL}/${post.titleImage}`} title={post.title} />
                       <div className="absolute top-4 right-4 px-3 py-1.5 bg-red-600 text-white text-[9px] font-black rounded-full shadow-lg z-10 uppercase">
                         {post.category}
                       </div>
@@ -284,9 +297,13 @@ const CategoryPage = () => {
               <h3 className="text-2xl font-black text-gray-900 mb-8 border-l-4 border-red-600 pl-4">Popular Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {allTags.length > 0 ? allTags.map((tag, i) => (
-                  <span key={i} className="bg-gray-50 text-gray-400 px-4 py-2 rounded-full text-xs font-black tracking-wider cursor-pointer hover:bg-red-600 hover:text-white transition-all border border-gray-100 shadow-sm">
+                  <Link 
+                    key={i} 
+                    to={`/tag/${tag}`}
+                    className="bg-gray-50 text-gray-400 px-4 py-2 rounded-full text-xs font-black tracking-wider cursor-pointer hover:bg-red-600 hover:text-white transition-all border border-gray-100 shadow-sm"
+                  >
                     #{tag}
-                  </span>
+                  </Link>
                 )) : (
                   <span className="text-gray-300 text-sm font-black italic">No tags found</span>
                 )}
